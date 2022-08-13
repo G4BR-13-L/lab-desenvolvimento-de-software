@@ -1,5 +1,6 @@
 
 # Histórias de Usuário
+> Gabriel Victor Couto Martins de Paula
 
 | Quem                     | O Quê                                                  | Para Quê                           |
 | ------------------------ | ------------------------------------------------------ | ---------------------------------- |
