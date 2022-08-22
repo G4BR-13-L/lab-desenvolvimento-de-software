@@ -1,6 +1,7 @@
 
 # Histórias de Usuário
 > Gabriel Victor Couto Martins de Paula
+> Saullo Bretas Silva
 
 | Quem                     | O Quê                                                  | Para Quê                           |
 | ------------------------ | ------------------------------------------------------ | ---------------------------------- |
