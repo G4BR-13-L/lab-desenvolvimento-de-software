@@ -1,5 +1,5 @@
 package com.labdev;
 
-public interface IOferta {
+public interface IOfertada {
 
 }

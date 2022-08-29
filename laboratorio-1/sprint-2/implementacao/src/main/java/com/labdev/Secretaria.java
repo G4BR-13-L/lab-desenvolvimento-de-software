@@ -1,5 +1,7 @@
 package com.labdev;
 
+import java.util.List;
+
 public class Secretaria extends Usuario {
     private double salario;
 

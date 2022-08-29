@@ -4,7 +4,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-
+    private int id;
     public Usuario() {
         this.id = 0;
         this.nome = "";
