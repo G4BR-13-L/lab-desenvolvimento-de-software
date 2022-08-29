@@ -1,5 +1,5 @@
 package com.labdev;
 
-public class DisciplinaOptativa {
-
+public class DisciplinaOptativa extends Disciplina{
+    
 }
