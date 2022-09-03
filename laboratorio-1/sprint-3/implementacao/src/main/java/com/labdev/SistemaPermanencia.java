@@ -25,8 +25,7 @@ public class SistemaPermanencia<Type> {
 
             objectInputStream.close();
             fileInputStream.close();
-        } catch (EOFException e) {
-            System.out.println("Dados carregados com sucesso!");
+        } catch (FileNotFoundException | EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
