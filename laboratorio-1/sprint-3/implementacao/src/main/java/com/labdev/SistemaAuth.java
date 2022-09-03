@@ -80,7 +80,7 @@ public class SistemaAuth {
         return true;
     }
 
-    public boolean cadastrar(String nome, String email, String senha) {
+    public boolean cadastrar(String nome, String email, String senha, TipoUsuario tipoUsuario) {
         var usuarioOptional = procurarPorEmail(email);
         if(usuarioOptional.isPresent()) {
             System.out.println("Email já cadastrado!");
@@ -92,7 +92,12 @@ public class SistemaAuth {
             return false;
         }
 
-        var usuario = new Usuario(nome, email, senha);
+        Usuario usuario;
+        if(tipoUsuario == TipoUsuario.ALUNO)
+            usuario = new Aluno(nome, email, senha);
+        else
+            usuario = new Professor(nome, email, senha);
+
         this.usuarios.adicionar(usuario);
         this.usuarios.salvar();
         return true;

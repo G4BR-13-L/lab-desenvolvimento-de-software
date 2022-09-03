@@ -31,14 +31,21 @@ public class Menu {
 
     private final Scanner scanner;
     private final HashMap<Integer, Opcao> opcaoList;
-    private static int proximoId = 0;
+    private int proximoId;
+    private boolean sairAoSelecionar;
 
     public Menu(boolean adicionarSair) {
         this.scanner = new Scanner(System.in);
         this.opcaoList = new HashMap<>();
+        this.proximoId = 0;
+        this.sairAoSelecionar = false;
 
         if(adicionarSair)
             this.adicionarOpcao("Sair", null);
+    }
+
+    public void sairAoSelecionar(boolean habilitar) {
+        this.sairAoSelecionar = habilitar;
     }
 
     public Opcao adicionarOpcao(String nome, OpcaoHandler handler) {
@@ -67,6 +74,9 @@ public class Menu {
                 var handler = itemValue.handler;
                 if(handler != null)
                     handler.handler(this.scanner);
+
+                if(sairAoSelecionar)
+                    return;
             } else {
                 System.out.println("Opção invalida!");
             }
@@ -83,6 +93,6 @@ public class Menu {
     }
 
     private int gerarProximoId() {
-        return proximoId++;
+        return this.proximoId++;
     }
 }
