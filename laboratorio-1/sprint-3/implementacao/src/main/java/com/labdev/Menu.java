@@ -5,7 +5,7 @@ import java.util.*;
 public class Menu {
 
     interface OpcaoHandler {
-        void handler(Scanner scanner);
+        void handler(Menu menu, Scanner scanner);
     }
 
     static class Opcao {
@@ -73,7 +73,7 @@ public class Menu {
                 var itemValue = this.opcaoList.get(itemKey.get());
                 var handler = itemValue.handler;
                 if(handler != null)
-                    handler.handler(this.scanner);
+                    handler.handler(this, this.scanner);
 
                 if(sairAoSelecionar)
                     return;
