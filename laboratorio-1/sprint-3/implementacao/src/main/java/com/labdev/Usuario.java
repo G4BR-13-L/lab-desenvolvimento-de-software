@@ -7,11 +7,13 @@ public class Usuario implements Serializable {
     private final String nome;
     private final String email;
     private final String senha;
+    private final TipoUsuario tipoUsuario;
 
-    public Usuario(String nome, String email, String senha) {
+    public Usuario(String nome, String email, String senha, TipoUsuario tipoUsuario) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNome() {
@@ -24,5 +26,9 @@ public class Usuario implements Serializable {
 
     public String getSenha() {
         return senha;
+    }
+
+    public TipoUsuario getTipo() {
+        return tipoUsuario;
     }
 }
