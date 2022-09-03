@@ -52,10 +52,13 @@ public class MenuGlobal extends Menu {
 
             System.out.printf("Bem vindo %s\n", sistemaAuth.getUsuario().getNome());
 
-            if(sistemaAuth.getUsuario().getTipo().equals(TipoUsuario.ALUNO)) {
+            var tipoUsuario = sistemaAuth.getUsuario().getTipo();
+            if(tipoUsuario == TipoUsuario.ALUNO) {
                 MenuAluno.getInstance().iniciar();
-            } else {
+            } else if(tipoUsuario == TipoUsuario.PROFESSOR) {
                 MenuProfessor.getInstance().iniciar();
+            } else if(tipoUsuario == TipoUsuario.SECRETARIA) {
+                MenuSecretaria.getInstance().iniciar();
             }
         }
     }
@@ -72,6 +75,9 @@ public class MenuGlobal extends Menu {
         });
         menuTipo.adicionarOpcao("Professor", (Menu, Scanner) -> {
             tipoUsuario.set(TipoUsuario.PROFESSOR);
+        });
+        menuTipo.adicionarOpcao("Secretaria", (Menu, Scanner) -> {
+            tipoUsuario.set(TipoUsuario.SECRETARIA);
         });
         menuTipo.mostrarOpcoes();
 

@@ -95,8 +95,10 @@ public class SistemaAuth {
         Usuario usuario;
         if(tipoUsuario == TipoUsuario.ALUNO)
             usuario = new Aluno(nome, email, senha);
-        else
+        else if (tipoUsuario == TipoUsuario.PROFESSOR)
             usuario = new Professor(nome, email, senha);
+        else
+            usuario = new Secretaria(nome, email, senha);
 
         this.usuarios.adicionar(usuario);
         this.usuarios.salvar();
