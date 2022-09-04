@@ -1,6 +1,8 @@
 package com.labdev;
 
-public class Disciplina {
+import java.io.Serializable;
+
+public class Disciplina implements Serializable{
     private final String nome;
     private final Curso curso;
     private final TipoDisciplina tipoDisciplina;

@@ -1,8 +1,9 @@
 package com.labdev;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Curso {
+public class Curso implements Serializable{
     private final String nome;
     private final int creditos;
     private List<Disciplina> disciplinas;
