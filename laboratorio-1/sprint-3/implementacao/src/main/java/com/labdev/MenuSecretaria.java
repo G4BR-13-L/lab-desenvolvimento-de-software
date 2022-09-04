@@ -19,6 +19,7 @@ public class MenuSecretaria extends Menu {
     public void iniciar() {
         adicionarOpcao("Listar Cursos", MenuSecretaria::menuListarCurso);
         adicionarOpcao("Adicionar curso", MenuSecretaria::menuAdicionarCurso);
+        adicionarOpcao("Listar disciplinas", MenuSecretaria::menuListarDisciplina);
         adicionarOpcao("Adicionar disciplina", MenuSecretaria::menuAdicionarDisciplina);
         adicionarOpcao("Editar disciplina", MenuSecretaria::menuEditarDisciplina);
         adicionarOpcao("Remover disciplina", MenuSecretaria::menuRemoverDisciplina);
@@ -42,6 +43,13 @@ public class MenuSecretaria extends Menu {
         SistemaSecretaria.getInstance().adicionarCurso(nome, creditos);
     }
 
+    private static void menuListarDisciplina( Menu menu, Scanner scanner ){
+        System.out.print("--- Disciplinas ---");
+        SistemaSecretaria.getInstance()
+        .getDisciplinas().
+        stream().
+        forEach(d -> System.out.println("- "+d.getNome() ));
+    }
     private static void menuAdicionarDisciplina(Menu menu, Scanner scanner) {
         System.out.print("Nome: ");
         var nome = scanner.nextLine();

@@ -6,6 +6,7 @@ public class Disciplina implements Serializable{
     private final String nome;
     private final Curso curso;
     private final TipoDisciplina tipoDisciplina;
+    private final Professor professor;
 
     public Disciplina(String nome, Curso curso, TipoDisciplina tipoDisciplina) {
         this.nome = nome;
@@ -24,5 +25,9 @@ public class Disciplina implements Serializable{
     @Override
     public String toString() {
         return String.format("Nome: %s\nTipo: %s", this.nome, this.getTipo());
+    }
+
+    public Professor getProfessor() {
+        return professor;
     }
 }

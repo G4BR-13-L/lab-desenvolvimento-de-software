@@ -25,6 +25,9 @@ public class SistemaSecretaria {
     public List<Curso> getCursos() {
         return cursos.getItems();
     }
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas.getItems();
+    }
 
     public Optional<Curso> procurarCurso(String nome) {
         return this.cursos.getItems().stream().filter(x -> x.getNome().equals(nome)).findFirst();
