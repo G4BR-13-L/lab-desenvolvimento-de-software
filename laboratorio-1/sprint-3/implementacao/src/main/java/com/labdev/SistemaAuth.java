@@ -1,5 +1,6 @@
 package com.labdev;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -27,6 +28,10 @@ public class SistemaAuth {
 
     public Usuario getUsuario(){
         return this.usuario;
+    }
+
+    public List<Usuario> getUsuarios(){
+        return usuarios.getItems();
     }
 
     private boolean emailValido(String email) {
