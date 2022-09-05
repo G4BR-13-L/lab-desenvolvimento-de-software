@@ -99,4 +99,9 @@ public class SistemaSecretaria {
 
         aluno.matricularEmDisciplina(disciplina);
     }
+
+    public void finalizar() {
+        this.cursos.salvar();
+        this.disciplinas.salvar();
+    }
 }

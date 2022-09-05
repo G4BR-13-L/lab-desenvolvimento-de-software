@@ -22,6 +22,8 @@ public class MenuGlobal extends Menu {
     public void iniciar() {
         adicionarOpcao("Salvar", (Menu, Scanner) -> {
             System.out.println("Salvando todos os dados");
+            SistemaAuth.getInstance().finalizar();
+            SistemaSecretaria.getInstance().finalizar();
         });
 
         adicionarOpcao(ENTRAR_MENU, MenuGlobal::menuEntrar);

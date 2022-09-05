@@ -119,4 +119,8 @@ public class SistemaAuth {
         this.usuarios.salvar();
         return true;
     }
+
+    public void finalizar() {
+        this.usuarios.salvar();
+    }
 }
