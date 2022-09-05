@@ -1,6 +1,7 @@
 package com.labdev;
 
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MenuSecretaria extends Menu {
@@ -11,28 +12,40 @@ public class MenuSecretaria extends Menu {
     }
 
     public static MenuSecretaria getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new MenuSecretaria();
         return instance;
     }
 
     public void iniciar() {
+        
+        
         adicionarOpcao("Listar Cursos", MenuSecretaria::menuListarCurso);
         adicionarOpcao("Adicionar curso", MenuSecretaria::menuAdicionarCurso);
         adicionarOpcao("Listar disciplinas", MenuSecretaria::menuListarDisciplina);
         adicionarOpcao("Adicionar disciplina", MenuSecretaria::menuAdicionarDisciplina);
         adicionarOpcao("Editar disciplina", MenuSecretaria::menuEditarDisciplina);
         adicionarOpcao("Remover disciplina", MenuSecretaria::menuRemoverDisciplina);
+        adicionarOpcao("Adicionar Professor a disciplina", MenuSecretaria::menuAdicionarProfessorADisciplina);
 
+        // for ( int i = 0 ; i < 10 ; i ++ ){
+        //     for ( int f = 0 ; f < 10 ; f ++ ){
+        //         SistemaSecretaria.getInstance().adicionarCurso("curso-"+f, f);
+        //     } 
+        //     for ( int f = 0 ; f < 10 ; f ++ ){
+
+        //         SistemaSecretaria.getInstance().adicionarDisciplina("disciplina", cursoOptional.get(), tipoDisciplina.get());
+        //     } 
+        // }
+        
         mostrarOpcoes();
     }
 
-    private static void menuListarCurso( Menu menu, Scanner scanner ){
+    private static void menuListarCurso(Menu menu, Scanner scanner) {
         SistemaSecretaria.getInstance()
-        .getCursos().
-        stream().
-        forEach(c -> System.out.println("- "+c.getNome() ));
+                .getCursos().stream().forEach(c -> System.out.println("- " + c.getNome()));
     }
+
     private static void menuAdicionarCurso(Menu menu, Scanner scanner) {
         System.out.print("Nome: ");
         var nome = scanner.nextLine();
@@ -43,13 +56,12 @@ public class MenuSecretaria extends Menu {
         SistemaSecretaria.getInstance().adicionarCurso(nome, creditos);
     }
 
-    private static void menuListarDisciplina( Menu menu, Scanner scanner ){
+    private static void menuListarDisciplina(Menu menu, Scanner scanner) {
         System.out.print("--- Disciplinas ---");
         SistemaSecretaria.getInstance()
-        .getDisciplinas().
-        stream().
-        forEach(d -> System.out.println("- "+d.getNome() ));
+                .getDisciplinas().stream().forEach(d -> System.out.println("- " + d.getNome()));
     }
+
     private static void menuAdicionarDisciplina(Menu menu, Scanner scanner) {
         System.out.print("Nome: ");
         var nome = scanner.nextLine();
@@ -62,6 +74,7 @@ public class MenuSecretaria extends Menu {
         menuTipo.adicionarOpcao("Obrigatoria", (Menu, Scanner) -> {
             tipoDisciplina.set(TipoDisciplina.OBRIGATORIA);
         });
+        menuTipo.sairAoSelecionar(true);
         menuTipo.mostrarOpcoes();
 
         System.out.print("Curso: ");
@@ -69,7 +82,7 @@ public class MenuSecretaria extends Menu {
 
         var sistemaSecretaria = SistemaSecretaria.getInstance();
         var cursoOptional = sistemaSecretaria.procurarCurso(nomeCurso);
-        if(cursoOptional.isEmpty()) {
+        if (cursoOptional.isEmpty()) {
             System.out.println("Curso não encontrado!");
             return;
         }
@@ -83,5 +96,15 @@ public class MenuSecretaria extends Menu {
 
     private static void menuRemoverDisciplina(Menu menu, Scanner scanner) {
 
+    }
+
+    private static void menuAdicionarProfessorADisciplina(Menu menu, Scanner scanner) {
+        var sistemaAuth = SistemaAuth.getInstance();
+        AtomicInteger x = new AtomicInteger(1);
+        sistemaAuth.getUsuarios().stream()
+                .filter(u -> u.getTipo() == TipoUsuario.PROFESSOR)
+                .forEach(p -> System.out.println((x.getAndIncrement()) + " - " + p.getNome()));
+
+        
     }
 }
