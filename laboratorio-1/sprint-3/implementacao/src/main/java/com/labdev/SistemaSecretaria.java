@@ -97,7 +97,7 @@ public class SistemaSecretaria {
             return;
         }
 
-        aluno.matricularEmDisciplina(disciplina);
+        disciplina.matricularAluno(aluno);
     }
 
     public void finalizar() {
