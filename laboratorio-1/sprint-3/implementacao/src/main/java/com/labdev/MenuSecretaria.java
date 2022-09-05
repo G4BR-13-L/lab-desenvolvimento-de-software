@@ -24,8 +24,7 @@ public class MenuSecretaria extends Menu {
         adicionarOpcao("Adicionar curso", MenuSecretaria::menuAdicionarCurso);
         adicionarOpcao("Listar disciplinas", MenuSecretaria::menuListarDisciplina);
         adicionarOpcao("Adicionar disciplina", MenuSecretaria::menuAdicionarDisciplina);
-        adicionarOpcao("Editar disciplina", MenuSecretaria::menuEditarDisciplina);
-        adicionarOpcao("Remover disciplina", MenuSecretaria::menuRemoverDisciplina);
+        adicionarOpcao("Remover disciplina", MenuSecretaria::menuSuspenderDisciplina);
         mostrarOpcoes();
     }
 
@@ -87,11 +86,23 @@ public class MenuSecretaria extends Menu {
         SistemaSecretaria.getInstance().adicionarDisciplina(nome, cursoOptional.get(), tipoDisciplina.get(), (Professor)(professor.get()));
     }
 
-    private static void menuEditarDisciplina(Menu menu, Scanner scanner) {
+    private static void menuSuspenderDisciplina(Menu menu, Scanner scanner) {
 
-    }
 
-    private static void menuRemoverDisciplina(Menu menu, Scanner scanner) {
+        System.out.print("Disciplina: ");
+        var nomeDisciplina = scanner.nextLine();
 
+        var sistemaSecretaria = SistemaSecretaria.getInstance();
+        
+        var disciplina = sistemaSecretaria.procurarDisciplina(nomeDisciplina);
+
+        if( disciplina.isEmpty() ){
+            System.out.println("Disciplina inválida");
+            return;
+        }
+
+        disciplina.get().suspenderDisciplina();
+            System.out.println("Suspendida com sucesso");
+                
     }
 }

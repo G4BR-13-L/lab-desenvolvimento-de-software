@@ -16,6 +16,7 @@ public class Professor extends Usuario {
     }
 
     public List<Disciplina> getDisciplinas(){
-        return this.disciplinas;
+        return this.disciplinas.stream()
+        .filter(d -> d.isLecionada()).toList();
     }
 }
