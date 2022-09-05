@@ -1,18 +1,21 @@
 package com.labdev;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curso implements Serializable{
     private final String nome;
     private final int creditos;
-    private List<Disciplina> disciplinas;
+    private final List<Disciplina> disciplinas;
 
-    private List<Aluno> alunos;
+    private final List<Aluno> alunos;
 
     public Curso(String nome, int creditos) {
         this.nome = nome;
         this.creditos = creditos;
+        this.disciplinas = new ArrayList<>();
+        this.alunos = new ArrayList<>();
     }
 
     public String getNome() {
