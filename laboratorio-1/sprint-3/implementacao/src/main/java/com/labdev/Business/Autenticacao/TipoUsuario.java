@@ -1,4 +1,4 @@
-package com.labdev;
+package com.labdev.Business.Autenticacao;
 
 public enum TipoUsuario {
     ALUNO,

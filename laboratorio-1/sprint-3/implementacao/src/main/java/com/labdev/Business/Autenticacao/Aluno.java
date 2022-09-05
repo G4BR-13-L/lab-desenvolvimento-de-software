@@ -1,6 +1,8 @@
-package com.labdev;
+package com.labdev.Business.Autenticacao;
 
 import java.util.List;
+
+import com.labdev.Business.Academico.Curso;
 
 public class Aluno extends Usuario {
     private Curso curso;

@@ -1,8 +1,10 @@
-package com.labdev;
+package com.labdev.Business.Academico;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.labdev.Business.Autenticacao.Aluno;
 
 public class Curso implements Serializable{
     private final String nome;

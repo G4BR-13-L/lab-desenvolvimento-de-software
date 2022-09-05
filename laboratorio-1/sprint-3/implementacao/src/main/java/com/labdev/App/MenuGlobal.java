@@ -1,7 +1,11 @@
-package com.labdev;
+package com.labdev.App;
 
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
+
+import com.labdev.Business.Academico.SistemaSecretaria;
+import com.labdev.Business.Autenticacao.SistemaAuth;
+import com.labdev.Business.Autenticacao.TipoUsuario;
 
 public class MenuGlobal extends Menu {
     private static final String ENTRAR_MENU = "Entrar na sua conta";

@@ -1,4 +1,4 @@
-package com.labdev;
+package com.labdev.Business.Autenticacao;
 
 import java.io.Serializable;
 

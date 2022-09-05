@@ -1,7 +1,9 @@
-package com.labdev;
+package com.labdev.Business.Autenticacao;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.labdev.Business.Academico.Disciplina;
 
 public class Professor extends Usuario {
     private final List<Disciplina> disciplinas;

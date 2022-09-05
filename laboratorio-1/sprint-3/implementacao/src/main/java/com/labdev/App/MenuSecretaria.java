@@ -1,8 +1,13 @@
-package com.labdev;
+package com.labdev.App;
 
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+
+import com.labdev.Business.Academico.SistemaSecretaria;
+import com.labdev.Business.Academico.TipoDisciplina;
+import com.labdev.Business.Autenticacao.Professor;
+import com.labdev.Business.Autenticacao.SistemaAuth;
 
 public class MenuSecretaria extends Menu {
     private static MenuSecretaria instance;

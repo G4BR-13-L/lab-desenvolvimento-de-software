@@ -1,4 +1,4 @@
-package com.labdev;
+package com.labdev.App;
 
 public class App {
     public void iniciar() {

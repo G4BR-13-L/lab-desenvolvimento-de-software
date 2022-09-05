@@ -1,7 +1,13 @@
-package com.labdev;
+package com.labdev.Business.Academico;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.labdev.Business.Autenticacao.Aluno;
+import com.labdev.Business.Autenticacao.Professor;
+import com.labdev.Business.Autenticacao.SistemaAuth;
+import com.labdev.Business.Autenticacao.TipoUsuario;
+import com.labdev.Business.Dados.SistemaPermanencia;
 
 public class SistemaSecretaria {
     private static SistemaSecretaria instance;

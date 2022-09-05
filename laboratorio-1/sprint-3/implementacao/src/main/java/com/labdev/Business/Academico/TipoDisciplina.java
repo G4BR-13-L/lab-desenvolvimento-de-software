@@ -1,4 +1,4 @@
-package com.labdev;
+package com.labdev.Business.Academico;
 
 public enum TipoDisciplina {
     OBRIGATORIA("Obrigatoria"),

@@ -1,6 +1,10 @@
-package com.labdev;
+package com.labdev.App;
 
 import java.util.Scanner;
+
+import com.labdev.Business.Academico.SistemaSecretaria;
+import com.labdev.Business.Autenticacao.Aluno;
+import com.labdev.Business.Autenticacao.SistemaAuth;
 
 public class MenuAluno extends Menu {
     private static MenuAluno instance;
