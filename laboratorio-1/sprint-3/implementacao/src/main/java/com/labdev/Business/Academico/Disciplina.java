@@ -57,4 +57,10 @@ public class Disciplina implements Serializable{
         this.alunos.add(aluno);
     }
 
+    public void removerMatriculaAluno(Aluno aluno) {
+        if(!this.alunos.contains(aluno))
+            return;
+
+        this.alunos.remove(aluno);
+    }
 }

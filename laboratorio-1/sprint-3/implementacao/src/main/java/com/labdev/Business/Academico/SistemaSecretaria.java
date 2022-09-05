@@ -106,6 +106,20 @@ public class SistemaSecretaria {
         disciplina.matricularAluno(aluno);
     }
 
+    public void removerMatriculaEmDisciplina(Aluno aluno, Disciplina disciplina) {
+        if(!this.disciplinas.getItems().contains(disciplina)) {
+            System.out.println("Disciplina não cadastrada!");
+            return;
+        }
+
+        if(!disciplina.getAlunos().contains(aluno)) {
+            System.out.println("Aluno não matriculado!");
+            return;
+        }
+
+        disciplina.removerMatriculaAluno(aluno);
+    }
+
     public void finalizar() {
         this.cursos.salvar();
         this.disciplinas.salvar();

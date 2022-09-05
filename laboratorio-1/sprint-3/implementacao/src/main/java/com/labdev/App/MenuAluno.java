@@ -27,7 +27,7 @@ public class MenuAluno extends Menu {
         } else {
             adicionarOpcao("Listar disciplinas", MenuAluno::menuListarDisciplinas);
             adicionarOpcao("Matricular em disciplina", MenuAluno::menuMatricular);
-            adicionarOpcao("Cancelar matricula em disciplina", (Menu, Scanner) -> {});
+            adicionarOpcao("Cancelar matricula em disciplina", MenuAluno::menuCancelarMatricula);
             adicionarOpcao("Confirmar matricula", (Menu, Scanner) -> {});
         }
 
@@ -80,5 +80,20 @@ public class MenuAluno extends Menu {
 
         var aluno = (Aluno) SistemaAuth.getInstance().getUsuario();
         sistemaSecretaria.matricularEmDisciplina(aluno, disciplina.get());
+    }
+
+    private static void menuCancelarMatricula(Menu menu, Scanner scanner) {
+        System.out.print("Nome disciplina: ");
+        var nomeDisciplina = scanner.nextLine();
+
+        var sistemaSecretaria = SistemaSecretaria.getInstance();
+        var disciplina = sistemaSecretaria.procurarDisciplina(nomeDisciplina);
+        if(disciplina.isEmpty()) {
+            System.out.println("Disciplina não encontrada!");
+            return;
+        }
+
+        var aluno = (Aluno) SistemaAuth.getInstance().getUsuario();
+        sistemaSecretaria.removerMatriculaEmDisciplina(aluno, disciplina.get());
     }
 }
