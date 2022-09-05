@@ -53,6 +53,16 @@ public class SistemaAuth {
         return listaUsuarios.stream().filter(x -> x.getEmail().equals(email)).findFirst();
     }
 
+    public Optional<Usuario> procurarPorNome(String nome) {
+        if(nome.isEmpty()) {
+            System.out.println("Nome invalido!");
+            return Optional.empty();
+        }
+
+        var listaUsuarios = this.usuarios.getItems();
+        return listaUsuarios.stream().filter(x -> x.getNome().equals(nome)).findFirst();
+    }
+
     public boolean entrar(String email, String senha) {
         var usuarioOptional = procurarPorEmail(email);
         if(usuarioOptional.isEmpty()) {
