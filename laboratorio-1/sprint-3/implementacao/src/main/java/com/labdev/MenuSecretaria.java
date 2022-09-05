@@ -88,19 +88,14 @@ public class MenuSecretaria extends Menu {
 
     private static void menuSuspenderDisciplina(Menu menu, Scanner scanner) {
 
-
         System.out.print("Disciplina: ");
         var nomeDisciplina = scanner.nextLine();
-
         var sistemaSecretaria = SistemaSecretaria.getInstance();
-        
         var disciplina = sistemaSecretaria.procurarDisciplina(nomeDisciplina);
-
         if( disciplina.isEmpty() ){
             System.out.println("Disciplina inválida");
             return;
         }
-
         disciplina.get().suspenderDisciplina();
             System.out.println("Suspendida com sucesso");
                 
