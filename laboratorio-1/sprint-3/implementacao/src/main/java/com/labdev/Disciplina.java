@@ -6,7 +6,6 @@ public class Disciplina implements Serializable{
     private final String nome;
     private final Curso curso;
     private final TipoDisciplina tipoDisciplina;
-    private Professor professor;
 
     public Disciplina(String nome, Curso curso, TipoDisciplina tipoDisciplina) {
         this.nome = nome;

@@ -73,7 +73,7 @@ public class SistemaSecretaria {
         curso.matricularAluno(aluno);
     }
 
-    public void adicionarDisciplina(String nome, Curso curso, TipoDisciplina tipoDisciplina) {
+    public void adicionarDisciplina(String nome, Curso curso, TipoDisciplina tipoDisciplina, Professor professor) {
         if(nome.isEmpty()) {
             System.out.println("Nome invalido!");
             return;
@@ -87,6 +87,7 @@ public class SistemaSecretaria {
         var disciplina = new Disciplina(nome, curso, tipoDisciplina);
         this.disciplinas.adicionar(disciplina);
         curso.adicionarDisciplina(disciplina);
+        professor.lecionarDisciplina(disciplina);
         this.disciplinas.salvar();
     }
 

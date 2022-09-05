@@ -22,13 +22,13 @@ public class MenuProfessor extends Menu {
 
     private static void menuListarDisciplina( Menu menu, Scanner scanner ){
         System.out.println("\n--- Disciplinas ---\n");
+        
         var sistemaAuth = SistemaAuth.getInstance();
-        String professor = sistemaAuth.getUsuario().getNome();
-        SistemaSecretaria.getInstance()
-        .getDisciplinas().
-        stream().
-        filter(d -> d.getProfessor().getNome() == professor)
+        Professor professor = (Professor)(sistemaAuth.getUsuario());
+        
+        professor.getDisciplinas().stream()
         .forEach(d -> System.out.println("- "+d.getNome() ));
+        
         System.out.println("\n------------------\n");
 
     }

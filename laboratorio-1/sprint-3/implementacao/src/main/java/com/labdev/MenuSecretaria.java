@@ -26,18 +26,6 @@ public class MenuSecretaria extends Menu {
         adicionarOpcao("Adicionar disciplina", MenuSecretaria::menuAdicionarDisciplina);
         adicionarOpcao("Editar disciplina", MenuSecretaria::menuEditarDisciplina);
         adicionarOpcao("Remover disciplina", MenuSecretaria::menuRemoverDisciplina);
-        adicionarOpcao("Adicionar Professor a disciplina", MenuSecretaria::menuAdicionarProfessorADisciplina);
-
-        // for ( int i = 0 ; i < 10 ; i ++ ){
-        //     for ( int f = 0 ; f < 10 ; f ++ ){
-        //         SistemaSecretaria.getInstance().adicionarCurso("curso-"+f, f);
-        //     } 
-        //     for ( int f = 0 ; f < 10 ; f ++ ){
-
-        //         SistemaSecretaria.getInstance().adicionarDisciplina("disciplina", cursoOptional.get(), tipoDisciplina.get());
-        //     } 
-        // }
-        
         mostrarOpcoes();
     }
 
@@ -77,6 +65,15 @@ public class MenuSecretaria extends Menu {
         menuTipo.sairAoSelecionar(true);
         menuTipo.mostrarOpcoes();
 
+        var sistemaAuth = SistemaAuth.getInstance();
+        System.out.print("Nome do Professor: ");
+        var nomeProfessor = scanner.nextLine();
+        var professor = sistemaAuth.procurarPorNome(nomeProfessor);
+        if(professor.isEmpty()){
+            System.out.print("Professor inexistente");
+            return;
+        }
+
         System.out.print("Curso: ");
         var nomeCurso = scanner.nextLine();
 
@@ -87,7 +84,7 @@ public class MenuSecretaria extends Menu {
             return;
         }
 
-        SistemaSecretaria.getInstance().adicionarDisciplina(nome, cursoOptional.get(), tipoDisciplina.get());
+        SistemaSecretaria.getInstance().adicionarDisciplina(nome, cursoOptional.get(), tipoDisciplina.get(), (Professor)(professor.get()));
     }
 
     private static void menuEditarDisciplina(Menu menu, Scanner scanner) {
@@ -96,15 +93,5 @@ public class MenuSecretaria extends Menu {
 
     private static void menuRemoverDisciplina(Menu menu, Scanner scanner) {
 
-    }
-
-    private static void menuAdicionarProfessorADisciplina(Menu menu, Scanner scanner) {
-        var sistemaAuth = SistemaAuth.getInstance();
-        AtomicInteger x = new AtomicInteger(1);
-        sistemaAuth.getUsuarios().stream()
-                .filter(u -> u.getTipo() == TipoUsuario.PROFESSOR)
-                .forEach(p -> System.out.println((x.getAndIncrement()) + " - " + p.getNome()));
-
-        
     }
 }
