@@ -1,0 +1,50 @@
+@startuml Caso de Uso
+
+left to right direction
+
+actor "Usuario" as user
+actor "Instituição" as instituicao
+actor "Aluno" as aluno
+actor "Professor" as professor
+actor "Empresa" as empresa
+rectangle Restaurant {
+    package usuarios{
+        usecase "Registrar-se" as registrarse
+        usecase "Autenticar" as autenticar
+    }
+    package pagamentos{
+        usecase "Dar Moeda ao aluno" as darMoedaAoAluno
+        usecase "notificar aluno por e-mail" as notificarAlunoPorEmail
+        usecase "consultar o extrato da conta" as consultarExtratoDaConta
+        usecase "Trocar Moedas" as trocarMoedas
+        usecase "Descontar saldo" as descontarSaldo
+        usecase "Enviar email de cupom" as enviarEmailDeCupom
+        usecase "Enviar email de Confirmação" as enviarEmailDeConfirmacao
+    }
+    usecase "Cadastrar Professores" as cadastrarProfessores
+    usecase "Selecionar vantagem" as selecionarVantagem
+    usecase "Cadastrar Vantagem" as cadastrarVantagem
+}
+
+user --> registrarse
+user --> autenticar
+user <|-- Aluno
+user <|-- instituicao
+user <|-- Professor
+user <|-- Empresa
+instituicao --> cadastrarProfessores
+
+professor --> darMoedaAoAluno
+darMoedaAoAluno .> notificarAlunoPorEmail: <<include>>
+notificarAlunoPorEmail --> aluno
+aluno --> consultarExtratoDaConta
+professor --> consultarExtratoDaConta
+aluno --> trocarMoedas
+empresa --> cadastrarVantagem
+
+selecionarVantagem .> trocarMoedas: <<include>>
+descontarSaldo .> trocarMoedas: <<include>>
+enviarEmailDeCupom .> trocarMoedas: <<include>>
+enviarEmailDeConfirmacao .> trocarMoedas:<<include>>
+enviarEmailDeConfirmacao --> empresa
+@enduml
