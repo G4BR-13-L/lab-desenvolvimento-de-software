@@ -1,11 +1,13 @@
 @startuml Classe
 
-class Usuario{
+abstract Usuario{
     - id: int
     - nome: String
     - email: String
     - senha: String
     - endereco: Endereco
+    + Usuario(nome: String, email: String, senha: String, endereco: Endereco)
+    + Usuario(email: String, senha: String)
     + registrar(): void
     + autenticar(): void
 }
@@ -13,14 +15,19 @@ class Usuario{
 class PessoaFisica {
     - cpf: String
     - rg: String
+    + PessoaFisica(nome: String, email: String, senha: String, endereco: Endereco, cpf: String, rg: String)
 }
 
 class PessoaJuridica {
     - cnpj: string
+    + PessoaJuridica(nome: String, email: String, senha: String, endereco: Endereco, cnpj: String)
 }
 
 class Instituicao {
-    + cadastrarProfessores(List<Professor>):void
+    - MOEDAS_POR_SEMESTRE: int = 1000
+    + cadastrarProfessores(List<Professor>): void
+    + distribuirMoedas(moedas: int): void
+    + distribuirMoedas(moedas: int, professor: Professor): void
 }
 
 class Endereco {
@@ -37,23 +44,20 @@ class Aluno {
     + selecionarInstituicao(): void
 }
 
-class Departamento {
-    - titulo: String
-}
-
 class Professor {
-    - salario: double
+    - departamento: String
 }
 
 class Empresa {
-    + cadastrarVantagem(): void
+    + cadastrarVantagem(nome: String, descricao: String, foto: String, custo: int): void
 }
 
 class Transacao {
     - data: Date
-    - valor: Double
+    - valor: int
     - remetente: Usuario
     - destinatario: Usuario
+    + Transacao(remetente: Usuario, destinatario: Usuario, valor: int)
     + relatorio(): String
 }
 
@@ -85,6 +89,7 @@ class Carteira {
     - saldo: int
     + consultarExtrato(): Extrato
     - descontarSaldo(valor: int): void
+    + totalMoedas(): int
 }
 
 class CarteiraAluno {
@@ -92,7 +97,11 @@ class CarteiraAluno {
 }
 
 class CarteiraProfessor{
-    + transferir(carteiraAluno: Carteira, valor: double, motivo: String): void
+    + transferir(professor: Professor, aluno: Aluno, valor: double, motivo: String): void
+}
+
+class Cupom {
+    - codigo: String
 }
 
 'Relacionamento Usuario
@@ -107,19 +116,26 @@ PessoaFisica <|-- Professor
 PessoaJuridica <|-- Empresa
 PessoaJuridica <|-- Instituicao
 
-Aluno --> Instituicao
-
 'Relacionamento Instituicao
-Professor "*" o-- Instituicao
+Instituicao "1" o-- "*" Professor
+Instituicao <-- Aluno
 
-'Relacionamento Professor
-Departamento "1" *-- "*" Professor
+'Relacionamento CarteiraAluno
+CarteiraAluno "1" <-- "1" Aluno
+
+
+'Relacionamento CarteiraProfessor
+CarteiraProfessor "1" <-- "1" Professor
 
 'Relacionamento Carteira
 Carteira <|-- CarteiraProfessor
 Carteira <|-- CarteiraAluno
-Carteira o-- Transacao
+Carteira  o--  Transacao
 
+'Relacionamento Transacao
+Transacao <-- Cupom
+
+'Relacionamento Empresa
 Empresa "1" o--> "*" Vantagem
 
 @enduml
