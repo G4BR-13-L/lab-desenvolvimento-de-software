@@ -1,0 +1,7 @@
+@startuml Componentes
+
+database "H2" {
+    
+}
+
+@enduml
