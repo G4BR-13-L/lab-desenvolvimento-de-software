@@ -1,0 +1,125 @@
+@startuml Classe
+
+class Usuario{
+    - id: int
+    - nome: String
+    - email: String
+    - senha: String
+    - endereco: Endereco
+    + registrar(): void
+    + autenticar(): void
+}
+
+class PessoaFisica {
+    - cpf: String
+    - rg: String
+}
+
+class PessoaJuridica {
+    - cnpj: string
+}
+
+class Instituicao {
+    + cadastrarProfessores(List<Professor>):void
+}
+
+class Endereco {
+    - cep: int
+    - numero: int
+    - rua: String
+    - bairro: String
+    - cidade: String
+    - estado: String
+}
+
+class Aluno {
+    - semestre: int
+    + selecionarInstituicao(): void
+}
+
+class Departamento {
+    - titulo: String
+}
+
+class Professor {
+    - salario: double
+}
+
+class Empresa {
+    + cadastrarVantagem(): void
+}
+
+class Transacao {
+    - data: Date
+    - valor: Double
+    - remetente: Usuario
+    - destinatario: Usuario
+    + relatorio(): String
+}
+
+class Extrato {
+    - saldo: int
+    - transacoes: List<Transacoes>
+    + relatorio(): String
+}
+
+class Vantagem {
+    - nome: String
+    - descricao: String
+    - foto: String
+    - custo: int
+    + Vantagem(nome: String, descricao: String, foto: String, custo: int)
+    + resgatar(): void
+}
+
+class Email {
+    - remetente: String
+    - destinatario: String
+    - assunto: String
+    - conteudo: String
+    + Email(remetente: String, destinatario: String, assunto: String, conteudo:String):void
+    + enviar(): void
+}
+
+class Carteira {
+    - saldo: int
+    + consultarExtrato(): Extrato
+    - descontarSaldo(valor: int): void
+}
+
+class CarteiraAluno {
+    + trocarMoedas(vantagem: Vantagem): void
+}
+
+class CarteiraProfessor{
+    + transferir(carteiraAluno: Carteira, valor: double, motivo: String): void
+}
+
+'Relacionamento Usuario
+Usuario <|-- PessoaFisica
+Usuario <|-- PessoaJuridica
+
+'Relacionamento PessoaFisica
+PessoaFisica <|-- Aluno
+PessoaFisica <|-- Professor
+
+'Relacionamento PessoaJuridica
+PessoaJuridica <|-- Empresa
+PessoaJuridica <|-- Instituicao
+
+Aluno --> Instituicao
+
+'Relacionamento Instituicao
+Professor "*" o-- Instituicao
+
+'Relacionamento Professor
+Departamento "1" *-- "*" Professor
+
+'Relacionamento Carteira
+Carteira <|-- CarteiraProfessor
+Carteira <|-- CarteiraAluno
+Carteira o-- Transacao
+
+Empresa "1" o--> "*" Vantagem
+
+@enduml
