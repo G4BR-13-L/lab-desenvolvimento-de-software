@@ -7,7 +7,7 @@ actor "Instituição" as instituicao
 actor "Aluno" as aluno
 actor "Professor" as professor
 actor "Empresa" as empresa
-rectangle Restaurant {
+rectangle "Sistema" as SistemaDeMérito {
     package usuarios{
         usecase "Registrar-se" as registrarse
         usecase "Autenticar" as autenticar
@@ -21,17 +21,20 @@ rectangle Restaurant {
         usecase "Enviar email de cupom" as enviarEmailDeCupom
         usecase "Enviar email de Confirmação" as enviarEmailDeConfirmacao
     }
-    usecase "Cadastrar Professores" as cadastrarProfessores
-    usecase "Selecionar vantagem" as selecionarVantagem
-    usecase "Cadastrar Vantagem" as cadastrarVantagem
+    package institucional{
+
+        usecase "Cadastrar Professores" as cadastrarProfessores
+        usecase "Selecionar vantagem" as selecionarVantagem
+        usecase "Cadastrar Vantagem" as cadastrarVantagem
+    }
 }
 
-user --> registrarse
-user --> autenticar
-user <|-- Aluno
+user -> registrarse
+user -> autenticar
+user <|-- aluno
 user <|-- instituicao
-user <|-- Professor
-user <|-- Empresa
+user <|-- professor
+user <|-- empresa
 instituicao --> cadastrarProfessores
 
 professor --> darMoedaAoAluno
@@ -39,12 +42,12 @@ darMoedaAoAluno .> notificarAlunoPorEmail: <<include>>
 notificarAlunoPorEmail --> aluno
 aluno --> consultarExtratoDaConta
 professor --> consultarExtratoDaConta
-aluno --> trocarMoedas
+aluno -> trocarMoedas
 empresa --> cadastrarVantagem
 
-selecionarVantagem .> trocarMoedas: <<include>>
-descontarSaldo .> trocarMoedas: <<include>>
-enviarEmailDeCupom .> trocarMoedas: <<include>>
-enviarEmailDeConfirmacao .> trocarMoedas:<<include>>
+selecionarVantagem ..> trocarMoedas: <<include>>
+descontarSaldo ..> trocarMoedas: <<include>>
+enviarEmailDeCupom ..> trocarMoedas: <<include>>
+enviarEmailDeConfirmacao ..> trocarMoedas:<<include>>
 enviarEmailDeConfirmacao --> empresa
 @enduml
