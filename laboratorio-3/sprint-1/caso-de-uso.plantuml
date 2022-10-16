@@ -22,7 +22,6 @@ rectangle "Sistema" as SistemaDeMérito {
         usecase "Enviar email de Confirmação" as enviarEmailDeConfirmacao
     }
     package institucional{
-
         usecase "Cadastrar Professores" as cadastrarProfessores
         usecase "Selecionar vantagem" as selecionarVantagem
         usecase "Cadastrar Vantagem" as cadastrarVantagem
