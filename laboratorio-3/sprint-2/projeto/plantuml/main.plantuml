@@ -1,0 +1,26 @@
+@startuml teste
+class Usuario{
+    - nome: String
+    - email: String
+    - senha: String
+    - isAutenticado:Boolean
+    + Usuario(nome: String, email: String, senha: String): void
+    + entrar(): void
+    + registrar(): void
+}
+
+class Cliente{
+    - MAXIMO_REND_AUFERIDOS: int = 3
+    - endereco: String
+    - rendimentos: List<Double>
+    - cpf: String
+    - rg: String
+    + adicionarPedidoAluguel(pedido: Pedido): void
+    + consultarPedidoAluguel(): List<Pedido>
+    + modificarPedidoAluguel(pedido: Pedido): void
+    + cancelarPedidoAluguel(pedido: Pedido): void
+}
+
+Usuario <|-- Cliente
+
+@enduml

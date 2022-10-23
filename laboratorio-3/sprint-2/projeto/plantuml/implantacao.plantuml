@@ -1,0 +1,26 @@
+@startuml Implantacao
+
+node Cliente <<device>>  {
+    node Browser {
+        rectangle HTML5 <<artifact>>
+    }
+}
+node <<device>> as Backend {
+    node Servidor <<execution enviroment>> {
+        rectangle Model <<layer>>
+        rectangle View <<layer>>
+        rectangle Controller <<layer>>
+    }    
+    node "Banco de dados" as BD {
+        component H2
+    }
+}
+
+Servidor <---> BD : "TCP/IP"
+Backend <--left-> Cliente : "TCP/IP"
+ 
+Model -[hidden] View
+View -[hidden] Controller
+
+ 
+@enduml
