@@ -1,0 +1,48 @@
+@startuml DER
+
+skinparam classAttributeIconSize 0
+hide circle
+
+'Usuario
+'Carteira
+'Transacao
+'Vantagem
+entity Usuario{
+    id: Number <<PK>>
+    nome: String
+    email: String
+    senha: String
+    CPF:String
+    RG:String
+    CNPJ:String
+}
+
+entity Endereco{
+    cep: int
+    numero: int
+    rua: String
+    bairro: String
+    cidade: String
+    estado: String
+}
+
+entity Transacao{
+    cupom: String NOT NULL
+}
+
+entity Vantagem{
+
+}
+
+'--------------------------------------
+'RELACIONAMENTOS
+'--------------------------------------
+
+Usuario -- Endereco
+
+
+'Entity01|..|| Entity02
+'Entity03 }o..o| Entity04
+'Entity05 ||--o{Entity06
+'Entity07 |o--|| Entity08
+@enduml
