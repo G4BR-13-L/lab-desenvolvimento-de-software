@@ -11,7 +11,6 @@
 | Como Aluno       | gostaria de trocar moedas                      | para obter vantagens                                 |
 | Como Aluno       | gostaria de ser notificado em trocas de moedas | para comprovacao de trocas                           |
 | Como Professor   | gostaria de enviar moedas                      | para compensar alunos                                |
-| Como Professor   | gostaria de receber moedas                     | para aumentar meu saldo                              |
 | Como Professor   | gostaria de consultar saldo                    | para fazer gestao das moedas                         |
 | Como Professor   | gostaria de consultar transações               | para conferir o histórico da minha conta             |
 | Como Empresa     | gostaria de cadastrar vantagens                | para divulgar produtos em promocao                   |
