@@ -18,8 +18,8 @@ entity Usuario{
 }
 
 entity Endereco{
-    cep: int
-    numero: int
+    cep: Number
+    numero: Number
     rua: String
     bairro: String
     cidade: String

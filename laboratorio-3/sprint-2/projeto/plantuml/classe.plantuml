@@ -1,6 +1,9 @@
 @startuml Classe
 
-abstract Usuario{
+skinparam classAttributeIconSize 0
+hide circle
+
+abstract Usuario <<abstract>>{
     - id: int
     - nome: String
     - email: String
@@ -107,6 +110,7 @@ class Cupom {
 'Relacionamento Usuario
 Usuario <|-- PessoaFisica
 Usuario <|-- PessoaJuridica
+Usuario - Endereco
 
 'Relacionamento PessoaFisica
 PessoaFisica <|-- Aluno
