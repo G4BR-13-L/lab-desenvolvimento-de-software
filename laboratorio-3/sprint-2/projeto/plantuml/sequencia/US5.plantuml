@@ -1,9 +1,9 @@
-@startuml US5eUS6
+@startuml US5eUS6eUS11
 
 
 actor "Aluno" as Aluno
 note left of Aluno #LightYellow
-US5 e US6
+US5, US6 e US11
 end note
 
 participant "Trocar moedas" as TrocarMoeda
@@ -32,7 +32,12 @@ deactivate Database
 ComponenteMoeda -->> TrocarMoeda
 deactivate ComponenteMoeda
 
-TrocarMoeda -> ComponenteMoeda : Enviar email
+TrocarMoeda -> ComponenteMoeda : Enviar email aluno
+activate ComponenteMoeda
+ComponenteMoeda -->> TrocarMoeda
+deactivate ComponenteMoeda
+
+TrocarMoeda -> ComponenteMoeda : Enviar email empresa
 activate ComponenteMoeda
 ComponenteMoeda -->> TrocarMoeda
 deactivate ComponenteMoeda

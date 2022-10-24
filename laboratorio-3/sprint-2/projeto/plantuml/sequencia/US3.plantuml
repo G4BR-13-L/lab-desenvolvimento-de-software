@@ -6,23 +6,23 @@ note left of Aluno #LightYellow
 US3
 end note
 
-participant "Consultar saldo" as SaldoAluno
-participant "Componente de Negocio" as ComponenteAluno
+participant "Consultar saldo" as Tela
+participant "Componente de Negocio" as Negocio
 database "Banco de Dados" as Database
 
 activate Aluno
-Aluno -> SaldoAluno : Consultar saldo
-activate SaldoAluno
-SaldoAluno -> ComponenteAluno : Consultar saldo do Aluno
-activate ComponenteAluno
-ComponenteAluno -> Database : Pegar dados de saldo do Aluno
+Aluno -> Tela : Consultar saldo
+activate Tela
+Tela -> Negocio : Consultar saldo do Aluno
+activate Negocio
+Negocio -> Database : Pegar dados de saldo do Aluno
 activate Database
-Database -->> ComponenteAluno : Saldo do aluno
+Database -->> Negocio : Saldo do aluno
 deactivate Database
-ComponenteAluno -->> SaldoAluno
-deactivate ComponenteAluno
-SaldoAluno -->> Aluno
-deactivate SaldoAluno
+Negocio -->> Tela
+deactivate Negocio
+Tela -->> Aluno
+deactivate Tela
 
 ' --> Sincrono 
 ' -->> Assincrono
