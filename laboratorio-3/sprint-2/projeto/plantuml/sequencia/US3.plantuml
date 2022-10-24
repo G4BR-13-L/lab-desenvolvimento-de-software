@@ -1,0 +1,32 @@
+@startuml US3
+
+
+actor "Aluno" as Aluno
+note left of Aluno #LightYellow
+US3
+end note
+
+participant "Consultar saldo" as SaldoAluno
+participant "Componente de Negocio" as ComponenteAluno
+database "Banco de Dados" as Database
+
+activate Aluno
+Aluno -> SaldoAluno : Consultar saldo
+activate SaldoAluno
+SaldoAluno -> ComponenteAluno : Consultar saldo do Aluno
+activate ComponenteAluno
+ComponenteAluno -> Database : Pegar dados de saldo do Aluno
+activate Database
+Database -->> ComponenteAluno : Saldo do aluno
+deactivate Database
+ComponenteAluno -->> SaldoAluno
+deactivate ComponenteAluno
+SaldoAluno -->> Aluno
+deactivate SaldoAluno
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml

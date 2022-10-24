@@ -1,4 +1,4 @@
-@startuml Classe
+@startuml classe
 
 skinparam classAttributeIconSize 0
 hide circle

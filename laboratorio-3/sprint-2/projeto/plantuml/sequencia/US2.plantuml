@@ -1,0 +1,37 @@
+@startuml US2
+
+
+actor "Usuario" as Usuario
+note left of Usuario #LightYellow
+US2
+end note
+
+participant "Login de Usuario" as LoginUsuario
+participant "Componente de Negocio" as ComponenteUsuario
+database "Banco de Dados" as Database
+
+Usuario -> LoginUsuario : Inclui dados de login
+
+activate Usuario
+activate LoginUsuario
+
+LoginUsuario -> ComponenteUsuario : Validar se usuario existe
+activate ComponenteUsuario
+
+ComponenteUsuario -> Database : Verifica se usuario existe
+activate Database
+
+Database -->> ComponenteUsuario : Usuario existe
+deactivate Database
+
+ComponenteUsuario -->> LoginUsuario
+deactivate ComponenteUsuario
+
+LoginUsuario -->> Usuario
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml
