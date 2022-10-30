@@ -1,0 +1,32 @@
+@startuml US9
+
+
+actor "Professor" as Professor
+note left of Professor #LightYellow
+US9
+end note
+
+participant "Consultar Transações" as Tela
+participant "Componente de Negocio" as Negocio
+database "Banco de Dados" as Database
+
+activate Professor
+Professor -> Tela : Consultar transação
+activate Tela
+Tela -> Negocio : Consultar transações do Professor
+activate Negocio
+Negocio -> Database : Pegar dados de transações do Professor
+activate Database
+Database -->> Negocio : Transações do Professor
+deactivate Database
+Negocio -->> Tela
+deactivate Negocio
+Tela -->> Professor
+deactivate Tela
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml

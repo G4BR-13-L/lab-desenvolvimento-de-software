@@ -1,0 +1,53 @@
+@startuml US5eUS6eUS11
+
+
+actor "Aluno" as Aluno
+note left of Aluno #LightYellow
+US5, US6 e US11
+end note
+
+participant "Trocar moedas" as TrocarMoeda
+participant "Componente de Negocio" as ComponenteMoeda
+database "Banco de Dados" as Database
+
+activate Aluno
+Aluno -> TrocarMoeda : Selecionar Vantagem
+activate TrocarMoeda
+TrocarMoeda -> ComponenteMoeda : Consultar vantagem
+activate ComponenteMoeda
+ComponenteMoeda -> Database : Consultar se vantagem existe
+activate Database
+Database -->> ComponenteMoeda : Vantagem existe
+deactivate Database
+ComponenteMoeda -->> TrocarMoeda
+deactivate ComponenteMoeda
+
+TrocarMoeda -> ComponenteMoeda : Trocar moedas
+activate ComponenteMoeda
+ComponenteMoeda -> Database : Salvar transação
+activate Database
+Database -->> ComponenteMoeda
+deactivate Database
+
+ComponenteMoeda -->> TrocarMoeda
+deactivate ComponenteMoeda
+
+TrocarMoeda -> ComponenteMoeda : Enviar email aluno
+activate ComponenteMoeda
+ComponenteMoeda -->> TrocarMoeda
+deactivate ComponenteMoeda
+
+TrocarMoeda -> ComponenteMoeda : Enviar email empresa
+activate ComponenteMoeda
+ComponenteMoeda -->> TrocarMoeda
+deactivate ComponenteMoeda
+
+TrocarMoeda -->> Aluno
+deactivate TrocarMoeda
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml

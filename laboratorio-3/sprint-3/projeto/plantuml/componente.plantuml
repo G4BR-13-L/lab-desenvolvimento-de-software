@@ -1,0 +1,33 @@
+@startuml componente
+
+left to right direction
+
+component Usuarios {
+    component Usuario
+    component Aluno
+    component Professor
+    component PessoaFisica
+    component PessoaJuridica
+}
+
+component Institucional {
+    component Instituicao
+    component Empresa
+}
+
+component Pagamento {
+    component Cupom
+    component Transacao
+    component Extrato
+    component Carteira
+    component CarteiraAluno
+    component CarteiraProfessor
+}
+
+component Email
+
+Email -0)- Pagamento
+Institucional -(0- Usuarios
+Usuarios -0)- Pagamento
+
+@enduml

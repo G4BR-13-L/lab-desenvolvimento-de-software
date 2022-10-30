@@ -1,0 +1,48 @@
+@startuml US1
+
+
+actor "Usuario" as Usuario
+note left of Usuario #LightYellow
+US1
+end note
+
+participant "Cadastro de Usuario" as CadastroUsuario
+participant "Componente de Negocio" as ComponenteUsuario
+database "Banco de Dados" as Database
+
+Usuario -> CadastroUsuario : Inclui dados de cadastro
+
+activate Usuario
+activate CadastroUsuario
+
+CadastroUsuario -> ComponenteUsuario : Validar se usuario existe
+activate ComponenteUsuario
+
+ComponenteUsuario -> Database : Verifica se usuario existe
+activate Database
+
+Database -->> ComponenteUsuario : Usuario não existe
+deactivate Database
+
+ComponenteUsuario -->> CadastroUsuario
+deactivate ComponenteUsuario
+
+CadastroUsuario -> ComponenteUsuario : Gravar dados
+activate ComponenteUsuario
+
+ComponenteUsuario -> Database : Inserir dados no banco de dados
+activate Database
+Database -->> ComponenteUsuario
+deactivate Database
+
+ComponenteUsuario -->> CadastroUsuario
+deactivate ComponenteUsuario
+
+CadastroUsuario -->> Usuario
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml

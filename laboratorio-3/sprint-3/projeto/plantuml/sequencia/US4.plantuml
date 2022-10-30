@@ -1,0 +1,32 @@
+@startuml US4
+
+
+actor "Aluno" as Aluno
+note left of Aluno #LightYellow
+US4
+end note
+
+participant "Consultar Transações" as TransacoesAluno
+participant "Componente de Negocio" as ComponenteTransacao
+database "Banco de Dados" as Database
+
+activate Aluno
+Aluno -> TransacoesAluno : Consultar transação
+activate TransacoesAluno
+TransacoesAluno -> ComponenteTransacao : Consultar transações do Aluno
+activate ComponenteTransacao
+ComponenteTransacao -> Database : Pegar dados de transações do Aluno
+activate Database
+Database -->> ComponenteTransacao : Transações do aluno
+deactivate Database
+ComponenteTransacao -->> TransacoesAluno
+deactivate ComponenteTransacao
+TransacoesAluno -->> Aluno
+deactivate TransacoesAluno
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml
