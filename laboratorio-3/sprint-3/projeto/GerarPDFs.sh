@@ -1,7 +1,3 @@
-
-
-
-
 # Gerando todos os diagramas
 java -jar plantuml/plantuml.jar -tpdf plantuml/*.plantuml ;
 mv plantuml/*.pdf ../ ; 
