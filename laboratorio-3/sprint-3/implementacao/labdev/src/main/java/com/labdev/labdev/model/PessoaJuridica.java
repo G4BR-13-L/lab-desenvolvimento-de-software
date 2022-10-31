@@ -1,5 +1,13 @@
 package com.labdev.labdev.model;
 
-public class PessoaJuridica extends Usuario {
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
+import lombok.Data;
+
+@Entity
+@Data
+public class PessoaJuridica extends Usuario {
+    @Column
+    private String cnpj;
 }

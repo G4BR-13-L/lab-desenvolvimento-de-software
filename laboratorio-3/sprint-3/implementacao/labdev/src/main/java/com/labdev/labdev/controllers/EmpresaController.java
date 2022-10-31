@@ -7,29 +7,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.labdev.labdev.model.Aluno;
-import com.labdev.labdev.repository.AlunoRepository;
+import com.labdev.labdev.model.Empresa;
+import com.labdev.labdev.repository.EmpresaRepository;
 
 @Controller
-@RequestMapping("/aluno")
-public class AlunoController {
-    private final AlunoRepository alunoRepository;
+@RequestMapping("/empresa")
+public class EmpresaController {
+    private final EmpresaRepository empresaRepository;
 
     @Autowired
-    public AlunoController(AlunoRepository alunoRepository) {
-        this.alunoRepository = alunoRepository;
+    public EmpresaController(EmpresaRepository empresaRepository) {
+        this.empresaRepository = empresaRepository;
     }
 
     @RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
     public String cadastrar(Model model) {
-        var aluno = new Aluno();
-        model.addAttribute("aluno", aluno);
-        return "aluno/cadastrar";
+        var empresa = new Empresa();
+        model.addAttribute("empresa", empresa);
+        return "empresa/cadastrar";
     }
 
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-    public String cadastrar(@ModelAttribute("aluno") Aluno aluno) {
-        this.alunoRepository.save(aluno);
+    public String cadastrar(@ModelAttribute("empresa") Empresa empresa) {
+        this.empresaRepository.save(empresa);
         return "usuario/logar";
     }
 }
