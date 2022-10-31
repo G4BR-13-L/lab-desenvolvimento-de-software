@@ -30,6 +30,6 @@ public class AlunoController {
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
     public String cadastrar(@ModelAttribute("aluno") Aluno aluno) {
         this.alunoRepository.save(aluno);
-        return "usuario/logar";
+        return "redirect:/usuario/logar";
     }
 }

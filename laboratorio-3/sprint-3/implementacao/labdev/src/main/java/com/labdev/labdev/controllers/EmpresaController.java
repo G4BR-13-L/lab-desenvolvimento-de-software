@@ -30,6 +30,6 @@ public class EmpresaController {
     @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
     public String cadastrar(@ModelAttribute("empresa") Empresa empresa) {
         this.empresaRepository.save(empresa);
-        return "usuario/logar";
+        return "redirect:/usuario/logar";
     }
 }
