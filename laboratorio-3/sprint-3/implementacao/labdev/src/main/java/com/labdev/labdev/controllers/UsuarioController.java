@@ -13,7 +13,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/logar", method = RequestMethod.GET)
-    public String logdar() {
+    public String logar() {
         return "usuario/logar";
     }
 }
