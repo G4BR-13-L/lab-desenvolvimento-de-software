@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 @Entity
-public class CarteiraAluno extends Carteira implements Serializable{
+public class CarteiraAluno extends Carteira {
 
     public void trocarMoedas( Vantagem vantagem ){
-        
+
     }
 }
