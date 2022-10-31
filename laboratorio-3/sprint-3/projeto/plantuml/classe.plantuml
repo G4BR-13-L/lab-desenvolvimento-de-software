@@ -110,7 +110,6 @@ class Cupom {
 'Relacionamento Usuario
 Usuario <|-- PessoaFisica
 Usuario <|-- PessoaJuridica
-Usuario - Endereco
 
 'Relacionamento PessoaFisica
 PessoaFisica <|-- Aluno
