@@ -1,5 +1,16 @@
 package com.labdev.labdev.model;
 
-public class PessoaFisica extends Usuario {
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
+import lombok.Data;
+
+@Entity
+@Data
+public class PessoaFisica extends Usuario {
+    @Column
+    private String cpf;
+
+    @Column
+    private String rg;
 }
