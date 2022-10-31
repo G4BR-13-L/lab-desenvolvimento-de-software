@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Aluno extends Usuario {
+public class Aluno extends PessoaFisica {
     @Column
     private int semestre;
 }

@@ -1,5 +1,5 @@
 package com.labdev.labdev.model;
 
-public class PessoaFisica {
+public class PessoaFisica extends Usuario {
 
 }
