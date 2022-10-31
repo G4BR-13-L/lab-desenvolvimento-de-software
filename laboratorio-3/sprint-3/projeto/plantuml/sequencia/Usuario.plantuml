@@ -1,0 +1,40 @@
+@startuml Usuario
+
+
+actor "Usuario" as Usuario
+note left of Usuario #LightYellow
+US4
+end note
+
+participant "UsuarioView" as UsuarioView
+participant "UsuarioController" as UsuarioController
+participant "UsuarioModel" as UsuarioModel
+
+
+Usuario ->  UsuarioView : Autenticar(Usuario)
+activate UsuarioView
+UsuarioView -> UsuarioController : ValidarUsuario(Usuario.email, Usuario.senha )
+activate UsuarioController
+UsuarioController -> UsuarioModel : UserId:Encontrado, UserPassword: Encontrada
+activate UsuarioModel
+deactivate UsuarioView
+
+
+'activate Aluno
+'Aluno -> TransacoesAluno : Consultar transação
+'activate TransacoesAluno
+'TransacoesAluno -> ComponenteTransacao : Consultar transações do Aluno
+'activate ComponenteTransacao
+'ComponenteTransacao -> Database : Pegar dados de transações do Aluno
+'Database -->> ComponenteTransacao : Transações do aluno
+'ComponenteTransacao -->> TransacoesAluno
+'deactivate ComponenteTransacao
+'TransacoesAluno -->> Aluno
+'deactivate TransacoesAluno
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml
