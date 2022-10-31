@@ -1,6 +1,5 @@
 package com.labdev.labdev.model;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -11,11 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import org.hibernate.annotations.ManyToAny;
-
-
 @Entity
-public class Carteira implements Serializable{
+public class Carteira {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,14 +22,16 @@ public class Carteira implements Serializable{
     @ManyToMany
     private List<Transacao> transacoes;
 
-    public Extrato consultarExtrato(){
+    public Extrato consultarExtrato() {
         Extrato e = new Extrato();
         return e;
     }
-    private void descontarSaldo(int valor){
+
+    private void descontarSaldo(int valor) {
 
     }
-    public BigInteger totalMoedas(){
+
+    public BigInteger totalMoedas() {
         return this.saldo;
     }
 
