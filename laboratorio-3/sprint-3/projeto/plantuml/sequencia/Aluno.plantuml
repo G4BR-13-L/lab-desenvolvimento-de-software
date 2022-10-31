@@ -3,23 +3,23 @@
 
 actor "Aluno" as Aluno
 note left of Aluno #LightYellow
-US4
+Aluno
 end note
 
+participant "AlunoView" as AlunoView
 participant "AlunoController" as AlunoController
-participant "Componente de Negocio" as ComponenteTransacao
+participant "AlunoModel" as AlunoModel
 
-activate Aluno
-Aluno -> TransacoesAluno : Consultar transação
-activate TransacoesAluno
-TransacoesAluno -> ComponenteTransacao : Consultar transações do Aluno
-activate ComponenteTransacao
-ComponenteTransacao -> Database : Pegar dados de transações do Aluno
-Database -->> ComponenteTransacao : Transações do aluno
-ComponenteTransacao -->> TransacoesAluno
-deactivate ComponenteTransacao
-TransacoesAluno -->> Aluno
-deactivate TransacoesAluno
+ref over AlunoView, AlunoController, AlunoModel : AutenticarUsuario
+Aluno -> AlunoView : ConsultarSaldo()
+activate AlunoView
+AlunoView ->  AlunoController : Aluno.Carteira.saldo()
+activate AlunoController
+AlunoController -> AlunoModel : :saldo
+activate AlunoModel
+AlunoModel --> AlunoController
+
+
 
 ' --> Sincrono 
 ' -->> Assincrono

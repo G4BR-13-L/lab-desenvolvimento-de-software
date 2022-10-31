@@ -10,27 +10,33 @@ participant "UsuarioView" as UsuarioView
 participant "UsuarioController" as UsuarioController
 participant "UsuarioModel" as UsuarioModel
 
+group AutenticacaoUsuario
+    Usuario ->  UsuarioView : Autenticar(Usuario)
+    activate UsuarioView
+    UsuarioView -> UsuarioController : ValidarUsuario(Usuario.email, Usuario.senha )
+    activate UsuarioController
+    UsuarioController -> UsuarioModel : UserId:Encontrado, UserPassword: Encontrada
+    activate UsuarioModel
+    deactivate UsuarioModel
+    deactivate UsuarioController
+    deactivate UsuarioView
+end
 
-Usuario ->  UsuarioView : Autenticar(Usuario)
-activate UsuarioView
-UsuarioView -> UsuarioController : ValidarUsuario(Usuario.email, Usuario.senha )
-activate UsuarioController
-UsuarioController -> UsuarioModel : UserId:Encontrado, UserPassword: Encontrada
-activate UsuarioModel
-deactivate UsuarioView
+
+group RegistroUsuario
+    Usuario ->  UsuarioView : Registrar(Usuario)
+    activate UsuarioView
+    UsuarioView -> UsuarioController : Registrar(Usuario.email, Usuario.senha )
+    activate UsuarioController
+    UsuarioController -> UsuarioModel : Adicionar:Registrado Com Sucesso
+    activate UsuarioModel
+    deactivate UsuarioModel
+    deactivate UsuarioController
+    deactivate UsuarioView
+end
 
 
-'activate Aluno
-'Aluno -> TransacoesAluno : Consultar transação
-'activate TransacoesAluno
-'TransacoesAluno -> ComponenteTransacao : Consultar transações do Aluno
-'activate ComponenteTransacao
-'ComponenteTransacao -> Database : Pegar dados de transações do Aluno
-'Database -->> ComponenteTransacao : Transações do aluno
-'ComponenteTransacao -->> TransacoesAluno
-'deactivate ComponenteTransacao
-'TransacoesAluno -->> Aluno
-'deactivate TransacoesAluno
+
 
 ' --> Sincrono 
 ' -->> Assincrono
