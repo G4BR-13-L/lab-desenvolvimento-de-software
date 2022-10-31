@@ -3,25 +3,50 @@
 
 actor "Aluno" as Aluno
 note left of Aluno #LightYellow
-Aluno
+    Aluno
 end note
 
-participant "AlunoView" as AlunoView
-participant "AlunoController" as AlunoController
-participant "AlunoModel" as AlunoModel
+participant "CarteiraAlunoView" as CarteiraAlunoView
+participant "CarteiraAlunoController" as CarteiraAlunoController
+participant "CarteiraAlunoModel" as CarteiraAlunoModel
 
-ref over AlunoView, AlunoController, AlunoModel : AutenticarUsuario
-Aluno -> AlunoView : ConsultarSaldo()
-activate AlunoView
-AlunoView ->  AlunoController : Aluno.Carteira.saldo()
-activate AlunoController
-AlunoController -> AlunoModel : :saldo
-activate AlunoModel
-AlunoModel --> AlunoController
+group ConsultarSaldo
+    ref over Aluno,CarteiraAlunoView, CarteiraAlunoController, CarteiraAlunoModel : AutenticarUsuario
+    Aluno -> CarteiraAlunoView : Saldo,Extrato:ConsultarSaldo()
+    activate CarteiraAlunoView
+    CarteiraAlunoView -> CarteiraAlunoController : CarteiraAluno.Carteira.saldo()
+    activate CarteiraAlunoController
+    CarteiraAlunoController -> CarteiraAlunoModel : Extrato:saldo
+    activate CarteiraAlunoModel
+    deactivate CarteiraAlunoModel
+    deactivate CarteiraAlunoController
+    deactivate CarteiraAlunoView
+end
+
+group Transferir
+    ref over Aluno,CarteiraAlunoView, CarteiraAlunoController, CarteiraAlunoModel : AutenticarUsuario
+    Aluno -> CarteiraAlunoView :  Cupom:TrocarVantagem(Vantagem)
+    activate CarteiraAlunoView
+    CarteiraAlunoView -> CarteiraAlunoController : TrocarVantagem()
+    activate CarteiraAlunoController
+    CarteiraAlunoController -> CarteiraAlunoModel : ConsultarSaldo()
+    activate CarteiraAlunoModel
+    deactivate CarteiraAlunoModel
+    CarteiraAlunoController -> CarteiraAlunoModel : ConsultarVantagem()
+    activate CarteiraAlunoModel
+    deactivate  CarteiraAlunoModel
+    CarteiraAlunoController -> CarteiraAlunoModel : GerarCupom()
+    activate CarteiraAlunoModel
+    deactivate CarteiraAlunoModel
+    deactivate CarteiraAlunoController
+    deactivate CarteiraAlunoView
+end
 
 
 
-' --> Sincrono 
+
+
+' --> Sincrono
 ' -->> Assincrono
 ' <-- Retorno Sincrono
 ' <<-- Retorno Assíncrono
