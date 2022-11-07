@@ -1,0 +1,125 @@
+@startuml DER
+
+skinparam classAttributeIconSize 0
+hide circle
+
+entity Usuario {
+    id: Number <<PK>>
+    ---
+    nome: String
+    email: String
+    senha: String
+    cep: Number
+    numero: Number
+    rua: String
+    bairro: String
+    cidade: String
+    estado: String
+}
+
+entity PessoaFisica {
+    id: Number <<PK>>
+    ---
+    idUsuario: Number <<FK>>
+    cpf: String
+    rg: String
+}
+
+entity PessoaJuridica {
+    id: Number <<PK>>
+    ---
+    idUsuario: Number <<FK>>
+    cnpj: String
+}
+
+entity Instituicao {
+    id: Number <<PK>>
+    ---
+    idPessoaJuridica: Number <<FK>>
+}
+
+entity Empresa {
+    id: Number <<PK>>
+    ---
+    idPessoaJuridica: Number <<FK>>
+}
+
+entity Aluno {
+    id: Number <<PK>>
+    ---
+    idCarteiraAluno: Number <<FK>>
+    idPessoaFisica: Number <<FK>>
+    semestre: Number
+}
+
+entity Professor {
+    id: Number <<PK>>
+    ---
+    idCarteiraProfessor: Number <<FK>>
+    idPessoaFisica: Number <<FK>>
+    departamento: String
+}
+
+entity Transacao {
+    id: Number <<PK>>
+    ---
+    idUsuarioRemetente: Number <<FK>>
+    idUsuarioDestinatario: Number <<FK>>
+    data: Timestamp
+    valor: Number
+    cupom: String NOT NULL
+}
+
+entity Vantagem {
+    id: Number <<PK>>
+    ---
+    nome: String
+    descricao: String
+    foto: String
+    custo: Number
+}
+
+entity Carteira {
+    id: Number <<PK>>
+    ---
+    saldo: Number
+}
+
+entity CarteiraAluno {
+    id: Number <<PK>>
+    ---
+    idCarteira: Number <<FK>>
+}
+
+entity CarteiraProfessor {
+    id: Number <<PK>>
+    ---
+    idCarteira: Number <<FK>>
+}
+
+'--------------------------------------
+'RELACIONAMENTOS
+'--------------------------------------
+
+Carteira ||-- CarteiraAluno
+Carteira ||-- CarteiraProfessor
+
+Aluno --|| CarteiraAluno
+Professor --|| CarteiraProfessor
+
+Empresa "1" ||--|{ "0..*" Vantagem
+
+Usuario ||--o{ Transacao
+
+Usuario ||-- PessoaFisica
+Usuario ||-- PessoaJuridica
+
+PessoaJuridica ||-- Empresa
+PessoaJuridica ||-- Instituicao
+
+PessoaFisica ||-- Aluno
+PessoaFisica ||-- Professor
+
+Professor "0..*" }o--|| "1" Instituicao
+
+@enduml
