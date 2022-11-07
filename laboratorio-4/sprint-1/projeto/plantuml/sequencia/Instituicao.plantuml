@@ -1,0 +1,65 @@
+@startuml Instituicao
+
+actor "Instituicao" as Instituicao
+note left of Instituicao #LightYellow
+    Instituicao
+end note
+
+participant "InstituicaoView" as InstituicaoView
+participant "InstituicaoController" as InstituicaoController
+participant "InstituicaoModel" as InstituicaoModel
+
+group CadastrarProfessores
+    ref over Instituicao,InstituicaoView, InstituicaoController, InstituicaoModel : AutenticarUsuario
+    Instituicao -> InstituicaoView :  CadastrarProfessor()
+    activate InstituicaoView
+    InstituicaoView -> InstituicaoController : CadastrarProfessor(Professor)
+    activate InstituicaoController
+    InstituicaoController -> InstituicaoModel : ProfessorExiste(Professor)
+    activate InstituicaoModel
+    
+    alt professor existe
+        ... Professor existe ...
+        InstituicaoModel -->> InstituicaoController: true
+        InstituicaoController -->> InstituicaoView : "Professor já cadastrado"
+        InstituicaoView -->> Instituicao : "Professor já cadastrado"
+
+        ... Professor NÃO existe ...
+        InstituicaoModel -->> InstituicaoController: false
+        deactivate InstituicaoModel
+        InstituicaoController -> InstituicaoModel : CadastrarProfessor()
+        activate InstituicaoModel
+        deactivate InstituicaoModel
+        deactivate InstituicaoController
+        deactivate InstituicaoView
+    end
+end
+
+group DarMoedaProfessor
+    ref over Instituicao,InstituicaoView, InstituicaoController, InstituicaoModel : AutenticarUsuario
+    Instituicao -> InstituicaoView :  DistribuirMoedas()
+    activate InstituicaoView
+    InstituicaoView -> InstituicaoController : DistribuirMoedas(Valor, Professor)
+    activate InstituicaoController
+    InstituicaoController -> InstituicaoModel : ProfessorExiste(Professor)
+    activate InstituicaoModel
+    
+    alt professor existe
+        ... Professor existe ...
+        InstituicaoModel -->> InstituicaoController: true
+        deactivate InstituicaoModel
+        InstituicaoController -> InstituicaoModel : DistribuirMoedas()
+        activate InstituicaoModel
+
+        ... Professor NÃO existe ...
+        InstituicaoModel -->> InstituicaoController: false
+        InstituicaoController -->> InstituicaoView : "Professor não cadastrado"
+        InstituicaoView -->> Instituicao : "Professor não cadastrado"
+
+        deactivate InstituicaoModel
+        deactivate InstituicaoController
+        deactivate InstituicaoView
+    end
+end
+
+@enduml

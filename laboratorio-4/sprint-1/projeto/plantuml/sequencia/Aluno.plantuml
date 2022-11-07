@@ -35,9 +35,14 @@ group Transferir
     CarteiraAlunoController -> CarteiraAlunoModel : ConsultarVantagem()
     activate CarteiraAlunoModel
     deactivate  CarteiraAlunoModel
+    CarteiraAlunoController -> CarteiraAlunoModel : DescontarSaldo()
+    activate CarteiraAlunoModel
+    deactivate CarteiraAlunoModel
     CarteiraAlunoController -> CarteiraAlunoModel : GerarCupom()
     activate CarteiraAlunoModel
     deactivate CarteiraAlunoModel
+    CarteiraAlunoController -->> Email : EnviarEmailCupom(Email)
+    CarteiraAlunoController -->> Email : EnviarEmailConfirmacao(Email)
     deactivate CarteiraAlunoController
     deactivate CarteiraAlunoView
 end

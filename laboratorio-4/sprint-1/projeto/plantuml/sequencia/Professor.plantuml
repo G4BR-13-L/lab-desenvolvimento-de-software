@@ -24,19 +24,23 @@ end
 
 group Transferir
     ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
-    Professor -> CarteiraProfessorView :  Cupom:TrocarVantagem(Vantagem)
+    Professor -> CarteiraProfessorView :  Comprovante:Transferir(Aluno)
     activate CarteiraProfessorView
-    CarteiraProfessorView -> CarteiraProfessorController : TrocarVantagem()
+    CarteiraProfessorView -> CarteiraProfessorController : Transferir(Aluno)
     activate CarteiraProfessorController
     CarteiraProfessorController -> CarteiraProfessorModel : ConsultarSaldo()
     activate CarteiraProfessorModel
     deactivate CarteiraProfessorModel
-    CarteiraProfessorController -> CarteiraProfessorModel : ConsultarVantagem()
+    CarteiraProfessorController -> CarteiraProfessorModel : ConsultarAluno()
     activate CarteiraProfessorModel
     deactivate  CarteiraProfessorModel
-    CarteiraProfessorController -> CarteiraProfessorModel : GerarCupom()
+    CarteiraProfessorController -> CarteiraProfessorModel : DescontarSaldo()
     activate CarteiraProfessorModel
     deactivate CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraProfessorModel : GerarComprovante()
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    CarteiraProfessorController -->> Email : NotificarAluno(Email)
     deactivate CarteiraProfessorController
     deactivate CarteiraProfessorView
 end
