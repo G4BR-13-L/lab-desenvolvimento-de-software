@@ -1,0 +1,46 @@
+@startuml Usuario
+
+
+actor "Usuario" as Usuario
+note left of Usuario #LightYellow
+US4
+end note
+
+participant "UsuarioView" as UsuarioView
+participant "UsuarioController" as UsuarioController
+participant "UsuarioModel" as UsuarioModel
+
+group AutenticacaoUsuario
+    Usuario ->  UsuarioView : Autenticar(Usuario)
+    activate UsuarioView
+    UsuarioView -> UsuarioController : ValidarUsuario(Usuario.email, Usuario.senha )
+    activate UsuarioController
+    UsuarioController -> UsuarioModel : UserId:Encontrado, UserPassword: Encontrada
+    activate UsuarioModel
+    deactivate UsuarioModel
+    deactivate UsuarioController
+    deactivate UsuarioView
+end
+
+
+group RegistroUsuario
+    Usuario ->  UsuarioView : Registrar(Usuario)
+    activate UsuarioView
+    UsuarioView -> UsuarioController : Registrar(Usuario.email, Usuario.senha )
+    activate UsuarioController
+    UsuarioController -> UsuarioModel : Adicionar:Registrado Com Sucesso
+    activate UsuarioModel
+    deactivate UsuarioModel
+    deactivate UsuarioController
+    deactivate UsuarioView
+end
+
+
+
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml Empresa
+
+actor "Empresa" as Empresa
+note left of Empresa #LightYellow
+    Empresa
+end note
+
+participant "CarteiraEmpresaView" as CarteiraEmpresaView
+participant "CarteiraEmpresaController" as CarteiraEmpresaController
+participant "CarteiraEmpresaModel" as CarteiraEmpresaModel
+
+group CadastrarVantagem
+    ref over Empresa,CarteiraEmpresaView, CarteiraEmpresaController, CarteiraEmpresaModel : AutenticarUsuario
+    Empresa -> CarteiraEmpresaView :  CadastrarVantagem(Vantagem)
+    activate CarteiraEmpresaView
+    CarteiraEmpresaView -> CarteiraEmpresaController : CadastrarVantagem()
+    activate CarteiraEmpresaController
+    CarteiraEmpresaController -> CarteiraEmpresaModel : ColsultarVantagens()
+    activate CarteiraEmpresaModel
+    deactivate CarteiraEmpresaModel
+    CarteiraEmpresaController -> CarteiraEmpresaModel : RegistrarVantagem()
+    activate CarteiraEmpresaModel
+    deactivate  CarteiraEmpresaModel
+    deactivate CarteiraEmpresaController
+    deactivate CarteiraEmpresaView
+end
+
+
+
+@enduml

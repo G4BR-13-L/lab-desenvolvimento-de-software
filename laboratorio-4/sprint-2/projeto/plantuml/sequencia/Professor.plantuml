@@ -1,0 +1,52 @@
+@startuml Professor
+
+actor "Professor" as Professor
+note left of Professor #LightYellow
+    Professor
+end note
+
+participant "CarteiraProfessorView" as CarteiraProfessorView
+participant "CarteiraProfessorController" as CarteiraProfessorController
+participant "CarteiraProfessorModel" as CarteiraProfessorModel
+
+group ConsultarSaldo
+    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
+    Professor -> CarteiraProfessorView : Saldo,Extrato:ConsultarSaldo()
+    activate CarteiraProfessorView
+    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.Carteira.saldo()
+    activate CarteiraProfessorController
+    CarteiraProfessorController -> CarteiraProfessorModel : Extrato:saldo
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    deactivate CarteiraProfessorController
+    deactivate CarteiraProfessorView
+end
+
+group Transferir
+    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
+    Professor -> CarteiraProfessorView :  Comprovante:Transferir(Aluno)
+    activate CarteiraProfessorView
+    CarteiraProfessorView -> CarteiraProfessorController : Transferir(Aluno)
+    activate CarteiraProfessorController
+    CarteiraProfessorController -> CarteiraProfessorModel : ConsultarSaldo()
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraProfessorModel : ConsultarAluno()
+    activate CarteiraProfessorModel
+    deactivate  CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraProfessorModel : DescontarSaldo()
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraProfessorModel : GerarComprovante()
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    CarteiraProfessorController -->> Email : NotificarAluno(Email)
+    deactivate CarteiraProfessorController
+    deactivate CarteiraProfessorView
+end
+' --> Sincrono
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml

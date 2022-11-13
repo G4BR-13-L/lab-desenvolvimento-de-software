@@ -1,0 +1,60 @@
+@startuml caso-de-uso
+
+left to right direction
+
+actor "Usuario" as user
+actor "Instituição" as instituicao
+actor "Aluno" as aluno
+actor "Professor" as professor
+actor "Empresa" as empresa
+actor "Pessoa Fisica" as pessoaFisica
+actor "Pessoa Juridica" as pessoaJuridica
+rectangle "Sistema" as SistemaDeMérito {
+    'package usuarios{
+        usecase "Registrar-se" as registrarse
+        usecase "Autenticar" as autenticar
+    '}
+    'package pagamentos{
+        usecase "Dar Moeda ao aluno" as darMoedaAoAluno
+        usecase "Dar Moeda ao Professor" as darMoedaAoProfessor
+        usecase "notificar aluno por e-mail" as notificarAlunoPorEmail
+        usecase "consultar o extrato da conta de aluno" as consultarExtratoDaContaAluno
+        usecase "consultar o extrato da conta de professor" as consultarExtratoDaContaProfessor
+        usecase "Trocar Moedas" as trocarMoedas
+        usecase "Descontar saldo" as descontarSaldo
+        usecase "Enviar email de cupom" as enviarEmailDeCupom
+        usecase "Enviar email de Confirmação" as enviarEmailDeConfirmacao
+   ' }
+    'package institucional{
+        usecase "Cadastrar Professores" as cadastrarProfessores
+        usecase "Selecionar vantagem" as selecionarVantagem
+        usecase "Cadastrar Vantagem" as cadastrarVantagem
+    '}
+}
+
+user -> registrarse
+user -> autenticar
+user <|-- pessoaFisica
+pessoaFisica <|-- aluno
+pessoaFisica <|-- professor
+user <|-- pessoaJuridica
+pessoaJuridica <|-- instituicao
+pessoaJuridica <|-- empresa
+instituicao --> cadastrarProfessores
+
+professor --> darMoedaAoAluno
+instituicao --> darMoedaAoProfessor
+darMoedaAoProfessor --> professor
+darMoedaAoAluno .> notificarAlunoPorEmail: <<include>>
+notificarAlunoPorEmail --> aluno
+aluno --> consultarExtratoDaContaAluno
+professor --> consultarExtratoDaContaProfessor
+aluno -> trocarMoedas
+empresa --> cadastrarVantagem
+
+selecionarVantagem ..> trocarMoedas: <<include>>
+descontarSaldo <.. trocarMoedas: <<include>>
+enviarEmailDeCupom <.. trocarMoedas: <<include>>
+enviarEmailDeConfirmacao <.. trocarMoedas:<<include>>
+enviarEmailDeConfirmacao --> empresa
+@enduml
