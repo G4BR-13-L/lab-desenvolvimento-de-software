@@ -29,4 +29,8 @@ public class Instituicao extends PessoaJuridica {
     public void distribuirMoedas(int moedas, Professor Professor) {
 
     }
+
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
+    }
 }

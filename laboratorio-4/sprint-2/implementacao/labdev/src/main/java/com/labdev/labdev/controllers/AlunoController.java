@@ -24,8 +24,6 @@ public class AlunoController {
     @RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
     public String cadastrar(Model model) {
         var aluno = new Aluno();
-        var carteira = new CarteiraAluno();
-        aluno.setCarteira(carteira);
         model.addAttribute("aluno", aluno);
         return "aluno/cadastrar";
     }
