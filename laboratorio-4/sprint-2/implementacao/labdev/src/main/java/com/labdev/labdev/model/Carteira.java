@@ -7,7 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+
+import com.labdev.labdev.model.transacao.Transacao;
 
 @Entity
 public class Carteira {
@@ -18,7 +24,12 @@ public class Carteira {
     private long id;
     private int saldo;
 
-    @ManyToMany
+    @OneToMany
+    @JoinTable(
+        name="transacao",
+        joinColumns = @JoinColumn(name = "transacao_id"),
+        inverseJoinColumns = @JoinColumn( name="carteira_id" )
+    )
     private List<Transacao> transacoes;
 
     public Extrato consultarExtrato() {
@@ -26,7 +37,7 @@ public class Carteira {
         return e;
     }
 
-    private void descontarSaldo(int valor) {
+    public void descontarSaldo(int valor) {
 
     }
 
@@ -36,6 +47,10 @@ public class Carteira {
 
     public int totalMoedas() {
         return this.saldo;
+    }
+
+    public void addTransacao(Transacao transacao){
+        this.transacoes.add(transacao);
     }
 
 }
