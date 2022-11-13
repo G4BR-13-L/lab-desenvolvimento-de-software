@@ -1,6 +1,5 @@
 package com.labdev.labdev.model;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,7 +16,7 @@ public class Carteira {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private long id;
-    private BigInteger saldo;
+    private int saldo;
 
     @ManyToMany
     private List<Transacao> transacoes;
@@ -31,7 +30,11 @@ public class Carteira {
 
     }
 
-    public BigInteger totalMoedas() {
+    public void incrementarSaldo(int valor) {
+        this.saldo  += valor;
+    }
+
+    public int totalMoedas() {
         return this.saldo;
     }
 
