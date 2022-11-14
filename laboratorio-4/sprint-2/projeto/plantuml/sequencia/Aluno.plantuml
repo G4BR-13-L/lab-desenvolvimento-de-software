@@ -12,11 +12,24 @@ participant "CarteiraAlunoModel" as CarteiraAlunoModel
 
 group ConsultarSaldo
     ref over Aluno,CarteiraAlunoView, CarteiraAlunoController, CarteiraAlunoModel : AutenticarUsuario
-    Aluno -> CarteiraAlunoView : Saldo,Extrato:ConsultarSaldo()
+    Aluno -> CarteiraAlunoView : Saldo:ConsultarSaldo()
     activate CarteiraAlunoView
-    CarteiraAlunoView -> CarteiraAlunoController : CarteiraAluno.Carteira.saldo()
+    CarteiraAlunoView -> CarteiraAlunoController : CarteiraAluno.saldoTotal()
     activate CarteiraAlunoController
-    CarteiraAlunoController -> CarteiraAlunoModel : Extrato:saldo
+    CarteiraAlunoController -> CarteiraAlunoModel : getSaldo();
+    activate CarteiraAlunoModel
+    deactivate CarteiraAlunoModel
+    deactivate CarteiraAlunoController
+    deactivate CarteiraAlunoView
+end
+
+group ConsultarExtrato
+    ref over Aluno,CarteiraAlunoView, CarteiraAlunoController, CarteiraAlunoModel : AutenticarUsuario
+    Aluno -> CarteiraAlunoView : Extrato:ConsultarExtrato()
+    activate CarteiraAlunoView
+    CarteiraAlunoView -> CarteiraAlunoController : CarteiraAluno.gerarExtrato()
+    activate CarteiraAlunoController
+    CarteiraAlunoController -> CarteiraAlunoModel : findAllTransacoes()
     activate CarteiraAlunoModel
     deactivate CarteiraAlunoModel
     deactivate CarteiraAlunoController

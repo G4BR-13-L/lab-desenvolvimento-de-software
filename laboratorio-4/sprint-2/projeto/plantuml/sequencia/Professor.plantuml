@@ -11,11 +11,24 @@ participant "CarteiraProfessorModel" as CarteiraProfessorModel
 
 group ConsultarSaldo
     ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
-    Professor -> CarteiraProfessorView : Saldo,Extrato:ConsultarSaldo()
+    Professor -> CarteiraProfessorView : Saldo:ConsultarSaldo()
     activate CarteiraProfessorView
-    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.Carteira.saldo()
+    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.saldoTotal()
     activate CarteiraProfessorController
-    CarteiraProfessorController -> CarteiraProfessorModel : Extrato:saldo
+    CarteiraProfessorController -> CarteiraProfessorModel : getSaldo();
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    deactivate CarteiraProfessorController
+    deactivate CarteiraProfessorView
+end
+
+group ConsultarExtrato
+    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
+    Professor -> CarteiraProfessorView : Extrato:ConsultarExtrato()
+    activate CarteiraProfessorView
+    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.gerarExtrato()
+    activate CarteiraProfessorController
+    CarteiraProfessorController -> CarteiraProfessorModel : findAllTransacoes()
     activate CarteiraProfessorModel
     deactivate CarteiraProfessorModel
     deactivate CarteiraProfessorController
