@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.labdev.labdev.model.Aluno;
+import com.labdev.labdev.model.CarteiraProfessor;
 import com.labdev.labdev.model.Professor;
 import com.labdev.labdev.model.Usuario;
 import com.labdev.labdev.model.transacao.Transacao;
@@ -46,7 +47,7 @@ public class CarteiraProfessorController {
     }
 
     @PostMapping(path = "/transferir")
-    public ResponseEntity<TransacaoRequest> transferir(@RequestBody TransacaoRequest transacaoRequest) {
+    public ResponseEntity<String> transferir(@RequestBody TransacaoRequest transacaoRequest) {
         // System.out.println(transacaoRequest.getRemetente_id());
         // System.out.println(transacaoRequest.getDestinatario_id());
         // System.out.println(transacaoRequest.getValor());
@@ -55,15 +56,27 @@ public class CarteiraProfessorController {
         
         Transacao transacao = new Transacao(professor.getCarteira(), aluno.getCarteira(), transacaoRequest.getValor());
         
-        professor.getCarteira().descontarSaldo(transacao.getValor());
-        aluno.getCarteira().incrementarSaldo(transacao.getValor());
+        if( consultarSaldo(professor.getCarteira().totalMoedas(),transacaoRequest.getValor()) ){
+            professor.getCarteira().descontarSaldo(transacao.getValor());
+            aluno.getCarteira().incrementarSaldo(transacao.getValor());
+            
+            professor.getCarteira().addTransacao(transacao);
+            aluno.getCarteira().addTransacao(transacao);
+            
+            System.out.println("Aluno Notificado por email");
+            
+            return new ResponseEntity<>((transacaoRequest).toString(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Saldo de Professor Insuficiente", HttpStatus.OK);
+        }
+        
+    }
 
-        professor.getCarteira().addTransacao(transacao);
-        aluno.getCarteira().addTransacao(transacao);
-
-        System.out.println("Aluno Notificado por email");
-
-        return new ResponseEntity<>(transacaoRequest, HttpStatus.OK);
+    private boolean consultarSaldo(int saldo, int valor){
+        if( saldo > valor){
+            return true;
+        }
+        return false;
     }
 
 }
