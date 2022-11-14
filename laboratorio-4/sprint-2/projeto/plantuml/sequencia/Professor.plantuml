@@ -24,13 +24,16 @@ end
 
 group ConsultarExtrato
     ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
-    Professor -> CarteiraProfessorView : Extrato:ConsultarExtrato()
+    Professor -> CarteiraProfessorView : "Relatorio":ConsultarExtrato()
     activate CarteiraProfessorView
     CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.gerarExtrato()
     activate CarteiraProfessorController
-    CarteiraProfessorController -> CarteiraProfessorModel : findAllTransacoes()
+    CarteiraProfessorController -> CarteiraProfessorModel : List<Transacao>:findAllTransacoes()
     activate CarteiraProfessorModel
     deactivate CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraProfessorController : String:relatorio()
+    activate CarteiraProfessorController
+    deactivate CarteiraProfessorController
     deactivate CarteiraProfessorController
     deactivate CarteiraProfessorView
 end
