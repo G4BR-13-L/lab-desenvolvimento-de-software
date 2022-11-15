@@ -1,4 +1,4 @@
-package com.labdev.labdev.model;
+package com.labdev.labdev.empresa;
 
 import java.io.Serializable;
 import java.math.BigInteger;

@@ -1,4 +1,4 @@
-package com.labdev.labdev.model.transacao;
+package com.labdev.labdev.carteira.transacao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

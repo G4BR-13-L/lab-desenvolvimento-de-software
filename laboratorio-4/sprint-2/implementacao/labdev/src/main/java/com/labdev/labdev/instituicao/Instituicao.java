@@ -1,6 +1,5 @@
 package com.labdev.labdev.instituicao;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.labdev.labdev.professor.Professor;
-import com.labdev.labdev.usuario.PessoaJuridica;
+import com.labdev.labdev.usuario.Usuario;
 
 @Entity
-public class Instituicao extends PessoaJuridica {
+public class Instituicao extends Usuario{
 
     public static int MOEDAS_POR_SEMESTRE = 1000;
 

@@ -3,12 +3,11 @@ package com.labdev.labdev.aluno;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 
 import com.labdev.labdev.carteira.CarteiraAluno;
-import com.labdev.labdev.usuario.PessoaFisica;
+import com.labdev.labdev.usuario.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Aluno extends PessoaFisica {
+public class Aluno extends Usuario {
     @Column
     private int semestre;
 

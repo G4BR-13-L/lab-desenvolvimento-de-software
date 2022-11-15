@@ -1,4 +1,4 @@
-package com.labdev.labdev.controllers;
+package com.labdev.labdev.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

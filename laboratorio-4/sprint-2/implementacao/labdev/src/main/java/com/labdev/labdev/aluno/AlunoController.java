@@ -1,4 +1,4 @@
-package com.labdev.labdev.controllers;
+package com.labdev.labdev.aluno;
 
 import java.util.List;
 
@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.labdev.labdev.aluno.Aluno;
-import com.labdev.labdev.carteira.CarteiraAluno;
-import com.labdev.labdev.repository.AlunoRepository;
 
 @Controller
 @RequestMapping("/aluno")

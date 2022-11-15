@@ -1,13 +1,10 @@
 package com.labdev.labdev.carteira;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.labdev.labdev.aluno.Aluno;
-import com.labdev.labdev.model.Vantagem;
+import com.labdev.labdev.empresa.Vantagem;
 
 @Entity
 public class CarteiraAluno extends Carteira {

@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 
 import com.labdev.labdev.carteira.CarteiraProfessor;
 import com.labdev.labdev.usuario.PessoaFisica;
+import com.labdev.labdev.usuario.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Professor extends PessoaFisica{
+public class Professor extends Usuario{
 
     @Column
     private String departamento;

@@ -7,13 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
 
-import com.labdev.labdev.model.transacao.Transacao;
+import com.labdev.labdev.carteira.transacao.Transacao;
+
+import javax.persistence.JoinColumn;
 
 @Entity
 public class Carteira {

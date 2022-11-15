@@ -1,13 +1,12 @@
-package com.labdev.labdev.model;
-
-import java.io.Serializable;
+package com.labdev.labdev.empresa;
 
 import javax.persistence.Entity;
 
-import com.labdev.labdev.usuario.PessoaJuridica;
+import com.labdev.labdev.usuario.Usuario;
+
 
 @Entity
-public class Empresa extends PessoaJuridica {
+public class Empresa extends Usuario {
 
 
     public void cadastrarVantagem(){

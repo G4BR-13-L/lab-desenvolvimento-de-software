@@ -1,7 +1,6 @@
-package com.labdev.labdev.model.transacao;
+package com.labdev.labdev.carteira.transacao;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,12 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import com.labdev.labdev.carteira.Carteira;
-import com.labdev.labdev.usuario.Usuario;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

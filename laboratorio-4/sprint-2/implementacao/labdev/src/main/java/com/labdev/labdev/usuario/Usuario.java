@@ -29,4 +29,13 @@ public class Usuario {
 
     @Column
     private String senha;
+
+    @Column
+    private String cpf;
+
+    @Column
+    private String rg;
+
+    @Column
+    private String cnpj;
 }
