@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <div>
       <Link href="/auth/Entrar">
-        <buton>
+        <div>
           Entrar
-        </buton>
+        </div>
       </Link>
     </div>
   )
