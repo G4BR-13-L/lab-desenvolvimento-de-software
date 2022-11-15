@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.labdev.labdev.model.CarteiraProfessor;
-import com.labdev.labdev.model.Professor;
-import com.labdev.labdev.repository.ProfessorRepository;
+import com.labdev.labdev.carteira.CarteiraProfessor;
+import com.labdev.labdev.professor.Professor;
+import com.labdev.labdev.professor.ProfessorRepository;
 
 @Controller
 @RequestMapping("/professor")

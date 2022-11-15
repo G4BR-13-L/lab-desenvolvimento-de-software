@@ -8,12 +8,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.labdev.labdev.model.Carteira;
-import com.labdev.labdev.model.CarteiraAluno;
-import com.labdev.labdev.model.Professor;
-import com.labdev.labdev.model.Usuario;
-import com.labdev.labdev.repository.CarteiraAlunoRepository;
-import com.labdev.labdev.repository.ProfessorRepository;
+import com.labdev.labdev.carteira.Carteira;
+import com.labdev.labdev.carteira.CarteiraAluno;
+import com.labdev.labdev.carteira.CarteiraAlunoRepository;
+import com.labdev.labdev.professor.Professor;
+import com.labdev.labdev.professor.ProfessorRepository;
+import com.labdev.labdev.usuario.Usuario;
 
 @SpringBootTest
 class LabdevApplicationTests {

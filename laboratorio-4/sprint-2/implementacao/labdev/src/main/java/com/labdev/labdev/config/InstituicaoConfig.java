@@ -5,12 +5,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.labdev.labdev.model.CarteiraProfessor;
-import com.labdev.labdev.model.Instituicao;
-import com.labdev.labdev.model.Professor;
-import com.labdev.labdev.repository.CarteiraProfessorRepository;
-import com.labdev.labdev.repository.InstituicaoRepository;
-import com.labdev.labdev.repository.ProfessorRepository;
+import com.labdev.labdev.carteira.CarteiraProfessor;
+import com.labdev.labdev.carteira.CarteiraProfessorRepository;
+import com.labdev.labdev.instituicao.Instituicao;
+import com.labdev.labdev.instituicao.InstituicaoRepository;
+import com.labdev.labdev.professor.Professor;
+import com.labdev.labdev.professor.ProfessorRepository;
 
 @Configuration
 public class InstituicaoConfig {

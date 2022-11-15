@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.labdev.labdev.model.Aluno;
-import com.labdev.labdev.model.CarteiraAluno;
+import com.labdev.labdev.aluno.Aluno;
+import com.labdev.labdev.carteira.CarteiraAluno;
 import com.labdev.labdev.repository.AlunoRepository;
 
 @Controller
