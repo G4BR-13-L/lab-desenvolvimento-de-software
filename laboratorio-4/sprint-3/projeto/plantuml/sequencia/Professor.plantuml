@@ -1,0 +1,69 @@
+@startuml Professor
+
+actor "Professor" as Professor
+note left of Professor #LightYellow
+    Professor
+end note
+
+participant "CarteiraProfessorView" as CarteiraProfessorView
+participant "CarteiraProfessorController" as CarteiraProfessorController
+participant "CarteiraProfessorModel" as CarteiraProfessorModel
+
+group ConsultarSaldo
+    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
+    Professor -> CarteiraProfessorView : Saldo:ConsultarSaldo()
+    activate CarteiraProfessorView
+    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.saldoTotal()
+    activate CarteiraProfessorController
+    CarteiraProfessorController -> CarteiraProfessorModel : getSaldo();
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    deactivate CarteiraProfessorController
+    deactivate CarteiraProfessorView
+end
+
+group ConsultarExtrato
+    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
+    Professor -> CarteiraProfessorView : "Relatorio":ConsultarExtrato()
+    activate CarteiraProfessorView
+    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.gerarExtrato()
+    activate CarteiraProfessorController
+    CarteiraProfessorController -> CarteiraProfessorModel : List<Transacao>:findAllTransacoes()
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraProfessorController : String:relatorio()
+    activate CarteiraProfessorController
+    deactivate CarteiraProfessorController
+    deactivate CarteiraProfessorController
+    deactivate CarteiraProfessorView
+end
+
+group Transferir
+    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
+    Professor -> CarteiraProfessorView :  Transferir(remetente_id, destinatario_id, valor)
+    activate CarteiraProfessorView
+    CarteiraProfessorView -> CarteiraProfessorController : transferir(TransacaoRequest)
+    activate CarteiraProfessorController
+    CarteiraProfessorController -> CarteiraProfessorController : ConsultarSaldo()
+    CarteiraProfessorController -> CarteiraProfessorModel : ConsultarAluno()
+    activate CarteiraProfessorModel
+    deactivate  CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraProfessorModel : DescontarSaldo()
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    CarteiraProfessorController -> CarteiraAlunoController: incrementarSaldo()
+    activate CarteiraAlunoController
+    deactivate CarteiraAlunoController
+    CarteiraProfessorController -> CarteiraProfessorModel : GerarComprovante()
+    activate CarteiraProfessorModel
+    deactivate CarteiraProfessorModel
+    CarteiraProfessorController -->> Email : NotificarAluno(Email)
+    deactivate CarteiraProfessorController
+    deactivate CarteiraProfessorView
+end
+' --> Sincrono
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml
