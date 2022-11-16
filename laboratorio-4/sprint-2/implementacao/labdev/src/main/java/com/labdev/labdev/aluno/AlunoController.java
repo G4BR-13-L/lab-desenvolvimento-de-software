@@ -4,11 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/aluno")
@@ -25,14 +24,14 @@ public class AlunoController {
     }
 
     @RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
-    public String cadastrar(Model model) {
-        var aluno = new Aluno();
-        model.addAttribute("aluno", aluno);
-        return "aluno/cadastrar";
-    }
-
-    @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-    public String cadastrar(@ModelAttribute("aluno") Aluno aluno) {
+    public String cadastrar( 
+        @RequestParam(required = false) String nome, 
+        @RequestParam(required = false) String email, 
+        @RequestParam(required = false) String senha, 
+        @RequestParam(required = true) String cpf,
+        @RequestParam(required = true) String rg
+    ) {
+        var aluno = new Aluno(nome, email, senha, cpf, rg);
         this.alunoRepository.save(aluno);
         return "redirect:/usuario/logar";
     }

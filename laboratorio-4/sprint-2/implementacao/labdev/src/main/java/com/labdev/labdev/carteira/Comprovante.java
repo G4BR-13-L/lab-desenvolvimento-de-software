@@ -22,6 +22,6 @@ public class Comprovante {
     }
 
     public String relatorio() {
-        return "";
+        return ""+this.data+this.remetente+this.destinatario+this.valor;
     }
 }

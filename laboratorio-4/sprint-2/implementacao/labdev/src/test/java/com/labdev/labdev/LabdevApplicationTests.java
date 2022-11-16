@@ -9,11 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.labdev.labdev.carteira.Carteira;
-import com.labdev.labdev.carteira.CarteiraAluno;
-import com.labdev.labdev.carteira.CarteiraAlunoRepository;
-import com.labdev.labdev.professor.Professor;
-import com.labdev.labdev.professor.ProfessorRepository;
-import com.labdev.labdev.usuario.Usuario;
+import com.labdev.labdev.carteira.CarteiraRepository;
 
 @SpringBootTest
 class LabdevApplicationTests {
@@ -24,15 +20,15 @@ class LabdevApplicationTests {
 
 }
 
-@WebMvcTest(CarteiraAluno.class)
-class CarteiraAlunoTest {
+@WebMvcTest(Carteira.class)
+class CarteiraTest {
     @Autowired
     MockMvc mockMvc;
     @Autowired
     ObjectMapper mapper;
     
     @MockBean
-    CarteiraAlunoRepository carteiraAlunoRepository;
+    CarteiraRepository carteiraRepository;
     
     
     

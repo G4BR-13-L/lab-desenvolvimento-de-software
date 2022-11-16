@@ -8,4 +8,8 @@ public class Cupom {
     public Cupom(){
         this.codigo = UUID.randomUUID().toString();
     }
+
+    public String getCodigo(){
+        return this.codigo;
+    }
 }
