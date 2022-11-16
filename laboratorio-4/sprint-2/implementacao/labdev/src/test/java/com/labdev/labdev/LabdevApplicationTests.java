@@ -8,8 +8,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.labdev.labdev.carteira.Carteira;
-import com.labdev.labdev.carteira.CarteiraRepository;
+import com.labdev.labdev.model.Carteira;
+import com.labdev.labdev.model.CarteiraAluno;
+import com.labdev.labdev.model.Professor;
+import com.labdev.labdev.model.Usuario;
+import com.labdev.labdev.repository.CarteiraAlunoRepository;
+import com.labdev.labdev.repository.ProfessorRepository;
 
 @SpringBootTest
 class LabdevApplicationTests {
@@ -20,15 +24,15 @@ class LabdevApplicationTests {
 
 }
 
-@WebMvcTest(Carteira.class)
-class CarteiraTest {
+@WebMvcTest(CarteiraAluno.class)
+class CarteiraAlunoTest {
     @Autowired
     MockMvc mockMvc;
     @Autowired
     ObjectMapper mapper;
     
     @MockBean
-    CarteiraRepository carteiraRepository;
+    CarteiraAlunoRepository carteiraAlunoRepository;
     
     
     
