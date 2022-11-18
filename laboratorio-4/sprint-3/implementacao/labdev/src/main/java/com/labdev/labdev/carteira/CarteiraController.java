@@ -34,9 +34,9 @@ public class CarteiraController {
                 
         Comprovante comprovante = carteiraService.transferir(transacaoRequest);
         if (comprovante == null) {
-            throw new SaldoInsuficienteException("Id not found in the request");
+            throw new SaldoInsuficienteException("Saldo insuficiente");
         }
-        return new ResponseEntity<>(comprovante, HttpStatus.OK);
+        return  ResponseEntity.ok(comprovante);
     }
 
     @RequestMapping(path = "/print")

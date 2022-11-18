@@ -24,7 +24,7 @@ public class ProfessorController {
         @RequestParam(required = true) String cpf,
         @RequestParam(required = true) String rg
     ) {
-        var professor = new Professor(nome, email, senha, cpf, rg);
+        Professor professor = new Professor(nome, email, senha, cpf, rg);
         this.professorRepository.save(professor);
         return "redirect:/usuario/logar";
     }

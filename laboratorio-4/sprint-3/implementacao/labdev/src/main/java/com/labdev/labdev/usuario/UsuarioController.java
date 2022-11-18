@@ -28,7 +28,7 @@ public class UsuarioController {
         @RequestParam(required = true) String email, 
         @RequestParam(required = true) String senha
     ) {
-        var user = this.usuarioRepository.findByEmailAndSenha(email, senha);
+        Usuario user = this.usuarioRepository.findByEmailAndSenha(email, senha);
         if (user != null) {
             return "redirect:/";
         }

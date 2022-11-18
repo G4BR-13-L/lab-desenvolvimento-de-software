@@ -25,7 +25,7 @@ public class EmpresaController {
         @RequestParam(required = false) String senha, 
         @RequestParam(required = true) String cnpj
     ) {
-        var empresa = new Empresa(nome, email, senha, cnpj);
+        Empresa empresa = new Empresa(nome, email, senha, cnpj);
         this.usuarioRepository.save(empresa);
         return "redirect:/usuario/logar";
     }

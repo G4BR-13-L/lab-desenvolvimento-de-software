@@ -69,7 +69,7 @@ public class CarteiraService {
     }
 
     private boolean consultarSaldo(int saldo, int valor) {
-        if (saldo > valor) {
+        if (saldo >= valor) {
             return true;
         }
         return false;
