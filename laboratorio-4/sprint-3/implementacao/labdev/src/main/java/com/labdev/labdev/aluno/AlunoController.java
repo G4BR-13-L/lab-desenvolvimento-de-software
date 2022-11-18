@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/aluno")
 public class AlunoController {
-    private final AlunoRepository alunoRepository;
+    private final AlunoService alunoService;
 
     @Autowired
-    public AlunoController(AlunoRepository alunoRepository) {
-        this.alunoRepository = alunoRepository;
+    public AlunoController(AlunoService alunoService) {
+        this.alunoService = alunoService;
     }
     @GetMapping
     public List<Aluno> getAlunos(){
-        return this.alunoRepository.findAll();
+        return this.alunoService.getAllAlunos();
     }
 
     @RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
@@ -31,8 +34,28 @@ public class AlunoController {
         @RequestParam(required = true) String cpf,
         @RequestParam(required = true) String rg
     ) {
-        var aluno = new Aluno(nome, email, senha, cpf, rg);
-        this.alunoRepository.save(aluno);
+        Aluno aluno = new Aluno(nome, email, senha, cpf, rg);
+        this.alunoService.save(aluno);
         return "redirect:/usuario/logar";
+    }
+
+
+    @GetMapping(path = "{alunoId}")
+    public Aluno getAluno(@PathVariable("alunoId") long id) {
+        return alunoService.findAlunoById(id);
+    }
+
+    @DeleteMapping(path = "{alunoId}")
+    public void deleteAluno(@PathVariable("alunoId") long id) {
+        alunoService.deleteAluno(id);
+    }
+
+    @PutMapping(path = "{alunoId}")
+    public void updateAluno(@PathVariable("alunoId") long alunoId,
+            @RequestParam(required = false) String nome, @RequestParam(required = false) String email,
+            @RequestParam(required = false) String senha, @RequestParam(required = false) String cpf,
+            @RequestParam(required = false) String rg, @RequestParam(required = false) String curso,
+            @RequestParam(required = false) double saldo) {
+        alunoService.updateAluno(alunoId, nome, email, senha, cpf, rg);
     }
 }
