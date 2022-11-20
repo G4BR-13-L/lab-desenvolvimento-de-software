@@ -9,6 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import com.labdev.labdev.usuario.Usuario;
+import com.labdev.labdev.vantagem.Vantagem;
 
 @Entity
 public class Empresa extends Usuario {
