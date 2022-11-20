@@ -17,6 +17,7 @@ import com.labdev.labdev.carteira.exception.SaldoInsuficienteException;
 import com.labdev.labdev.carteira.extrato.Extrato;
 import com.labdev.labdev.carteira.extrato.ExtratoRequest;
 import com.labdev.labdev.carteira.transacao.TransacaoRequest;
+import com.labdev.labdev.vantagem.VantagemRequest;
 
 @CrossOrigin
 @RestController
@@ -48,11 +49,23 @@ public class CarteiraController {
         carteiraService.printCarteiras();
     }
 
-    @GetMapping(path = "/extrato")
+    @GetMapping(value = "/extrato", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Extrato> extrato(@RequestBody ExtratoRequest ExtratoRequest){
         Extrato extrato = carteiraService.gerarExtrato(ExtratoRequest);
-        return new ResponseEntity<>(extrato, HttpStatus.OK);
+        return ResponseEntity.ok(extrato);
         
+    }
+
+    @GetMapping(value = "/trocar-vantagem", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Cupom> trocarVantagem(@RequestBody VantagemRequest vantagemRequest)
+            throws SaldoInsuficienteException {
+                System.out.println("Chamando Service");
+                
+        Cupom cupom = carteiraService.trocarVantagem(vantagemRequest);
+        if (cupom == null) {
+            throw new SaldoInsuficienteException("Saldo insuficiente");
+        }
+        return ResponseEntity.ok(cupom);
     }
 
 }

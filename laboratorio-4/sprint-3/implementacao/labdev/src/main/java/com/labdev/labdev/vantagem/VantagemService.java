@@ -41,7 +41,8 @@ public class VantagemService {
             String nome,
             String descricao,
             String foto,
-            int custo) {
+            int custo,
+            boolean ativa) {
         if (!vantagemRepository.existsById(id))
             throw new IllegalStateException("Vantagem do id:" + id + " não encontrado");
         Vantagem vantagem = vantagemRepository.findVantagemById(id);
@@ -56,6 +57,9 @@ public class VantagemService {
         }
         if (custo != vantagem.getCusto()) {
             vantagem.setCusto(custo);
+        }
+        if (ativa != vantagem.isAtiva()) {
+            vantagem.setAtiva(ativa);
         }
     }
 

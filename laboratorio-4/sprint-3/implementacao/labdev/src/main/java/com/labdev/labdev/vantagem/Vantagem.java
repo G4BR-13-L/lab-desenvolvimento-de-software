@@ -14,7 +14,6 @@ public class Vantagem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
     private long id;
 
 
@@ -22,12 +21,15 @@ public class Vantagem implements Serializable {
     private String descricao;
     private String foto;
     private int custo;
+    private boolean ativa;
 
+    public Vantagem(){}
     public Vantagem(String nome, String descricao, String foto, int custo) {
         this.nome = nome;
         this.descricao = descricao;
         this.foto = foto;
         this.custo = custo;
+        this.ativa = true;
     }
 
     
@@ -101,6 +103,12 @@ public class Vantagem implements Serializable {
      */
     public void setCusto(int custo) {
         this.custo = custo;
+    }
+    public boolean isAtiva() {
+        return this.ativa;
+    }
+    public void setAtiva(boolean ativa) {
+        this.ativa = ativa;
     }
 
 }

@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,15 +32,9 @@ public class VantagemController {
         return new ResponseEntity<>(this.vantagemService.getAllVantagens(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/cadastrar", method = RequestMethod.GET)
-    public String cadastrar(
-            @RequestParam(required = true) String nome,
-            @RequestParam(required = true) String descricao,
-            @RequestParam(required = true) String foto,
-            @RequestParam(required = true) int custo) {
-        Vantagem vantagem = new Vantagem(nome, descricao, foto, custo);
+    @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
+    public void cadastrarVantagem(@RequestBody Vantagem vantagem) {
         this.vantagemService.save(vantagem);
-        return "redirect:/usuario/logar";
     }
 
     @GetMapping(path = "{vantagemId}")
@@ -56,7 +52,8 @@ public class VantagemController {
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) String foto,
-            @RequestParam(required = false) int custo) {
-        vantagemService.updateVantagem(vantagemId, nome, descricao, foto, custo);
+            @RequestParam(required = false) int custo,
+            @RequestParam(required = false) boolean ativa) {
+        vantagemService.updateVantagem(vantagemId, nome, descricao, foto, custo, ativa);
     }
 }

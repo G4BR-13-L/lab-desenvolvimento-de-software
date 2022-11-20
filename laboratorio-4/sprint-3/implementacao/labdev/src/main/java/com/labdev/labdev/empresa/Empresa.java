@@ -14,13 +14,14 @@ import com.labdev.labdev.vantagem.Vantagem;
 @Entity
 public class Empresa extends Usuario {
 
-    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable( 
         name="vantagens",
         joinColumns = @JoinColumn(name = "vantagem_fk", nullable = true),
         inverseJoinColumns = @JoinColumn( name="empresa_fk"))
     private List<Vantagem> vantagens;
 
+    public Empresa(){}
     public Empresa(
             String nome, String email, String senha,
             String cnpj) {
@@ -28,7 +29,9 @@ public class Empresa extends Usuario {
                 cnpj);
     }
 
-    public void cadastrarVantagem() {
+    public void cadastrarVantagem(Vantagem vantagem) {
+
+        this.vantagens.add(vantagem);
 
     }
 }
