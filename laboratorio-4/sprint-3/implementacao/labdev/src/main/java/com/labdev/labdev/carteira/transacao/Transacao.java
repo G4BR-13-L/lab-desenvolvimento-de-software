@@ -41,8 +41,8 @@ public class Transacao {
     @Column
     private int valor = 0;
 
-    @OneToMany(mappedBy = "transacoes")
-    private List<Carteira> carteiras = new ArrayList<Carteira>();
+    /*@ManyToMany(mappedBy = "transacoes")
+    private List<Carteira> carteiras = new ArrayList<Carteira>();*/
 
     public Transacao(){
 
@@ -50,8 +50,8 @@ public class Transacao {
     public Transacao(Carteira remetente, Carteira destinatario, int valor) {
         this.data = LocalDateTime.now();
         this.valor = valor;
-        this.carteiras.add(remetente);
-        this.carteiras.add(destinatario);
+        //this.carteiras.add(remetente);
+        //this.carteiras.add(destinatario);
     }
 
     public String relatorio() {
@@ -80,7 +80,7 @@ public class Transacao {
         this.valor = valor;
     }
 
-    public Carteira getRemetente() {
+    /*public Carteira getRemetente() {
         return this.carteiras.get(0);
     }
 
@@ -94,6 +94,6 @@ public class Transacao {
 
     public void setDestinatario(Carteira destinatario) {
         this.carteiras.add(1, destinatario);
-    }
+    }*/
 
 }

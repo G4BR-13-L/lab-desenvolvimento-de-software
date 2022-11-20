@@ -11,4 +11,5 @@ public class TransacaoRequest {
     int valor;
     Long remetente_id;
     Long destinatario_id;
+    String justificativa;
 }

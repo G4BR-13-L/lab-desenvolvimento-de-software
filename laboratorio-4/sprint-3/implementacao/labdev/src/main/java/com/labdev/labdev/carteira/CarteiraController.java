@@ -6,12 +6,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.labdev.labdev.carteira.exception.SaldoInsuficienteException;
+import com.labdev.labdev.carteira.extrato.Extrato;
+import com.labdev.labdev.carteira.extrato.ExtratoRequest;
 import com.labdev.labdev.carteira.transacao.TransacaoRequest;
 
 @CrossOrigin
@@ -27,7 +30,7 @@ public class CarteiraController {
         this.carteiraService = carteiraService;
     }
 
-    @PostMapping(path = "/transferir")
+    @GetMapping(path = "/transferir")
     public ResponseEntity<Comprovante> transferir(@RequestBody TransacaoRequest transacaoRequest)
             throws SaldoInsuficienteException {
                 System.out.println("Chamando Service");
@@ -36,12 +39,18 @@ public class CarteiraController {
         if (comprovante == null) {
             throw new SaldoInsuficienteException("Saldo insuficiente");
         }
-        return  ResponseEntity.ok(comprovante);
+        return  new ResponseEntity<>(comprovante, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/print")
     public void print(){
         carteiraService.printCarteiras();
+    }
+
+    @GetMapping("/extrato")
+    public ResponseEntity<Extrato> extrato(@RequestBody ExtratoRequest ExtratoRequest){
+        Extrato extrato = carteiraService.gerarExtrato(ExtratoRequest);
+        return new ResponseEntity<>(extrato, HttpStatus.OK);
         
     }
 

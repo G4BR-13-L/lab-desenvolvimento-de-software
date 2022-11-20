@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.labdev.labdev.carteira.extrato.Extrato;
 import com.labdev.labdev.carteira.transacao.Transacao;
 import com.labdev.labdev.usuario.Usuario;
 
@@ -32,7 +33,7 @@ public class Carteira {
     private long id;
     private int saldo;
     
-    @OneToMany(fetch = FetchType.EAGER, 
+    @OneToMany(fetch = FetchType.LAZY, 
      cascade=CascadeType.ALL)
     @JoinTable( 
         name="transacoes",
@@ -42,14 +43,9 @@ public class Carteira {
     private List<Transacao> transacoes;
 
     
-    @OneToOne( mappedBy = "carteira" )
-    private Usuario proprietario;
+    /*@OneToOne( mappedBy = "carteira" )
+    private Usuario proprietario;*/
 
-
-    public Extrato consultarExtrato() {
-        Extrato e = new Extrato();
-        return e;
-    }
 
     public String getId(){
         return this.id+"";
@@ -62,7 +58,7 @@ public class Carteira {
         this.saldo  += valor;
     }
 
-    public int totalMoedas() {
+    public int getSaldo() {
         return this.saldo;
     }
 
@@ -71,8 +67,12 @@ public class Carteira {
         this.transacoes.add(transacao);
     }
 
-    public Usuario getProprietario(){
+    /*public Usuario getProprietario(){
         return this.proprietario;
+    }*/
+
+    public List<Transacao> getTransacoes(){
+        return this.transacoes;
     }
 
 }
