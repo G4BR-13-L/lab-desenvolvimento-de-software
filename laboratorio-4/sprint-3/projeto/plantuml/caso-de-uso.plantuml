@@ -7,8 +7,7 @@ actor "Instituição" as instituicao
 actor "Aluno" as aluno
 actor "Professor" as professor
 actor "Empresa" as empresa
-actor "Pessoa Fisica" as pessoaFisica
-actor "Pessoa Juridica" as pessoaJuridica
+
 rectangle "Sistema" as SistemaDeMérito {
     'package usuarios{
         usecase "Registrar-se" as registrarse
@@ -34,12 +33,10 @@ rectangle "Sistema" as SistemaDeMérito {
 
 user -> registrarse
 user -> autenticar
-user <|-- pessoaFisica
-pessoaFisica <|-- aluno
-pessoaFisica <|-- professor
-user <|-- pessoaJuridica
-pessoaJuridica <|-- instituicao
-pessoaJuridica <|-- empresa
+user <|-- aluno
+user <|-- professor
+user <|-- instituicao
+user <|-- empresa
 instituicao --> cadastrarProfessores
 
 professor --> darMoedaAoAluno

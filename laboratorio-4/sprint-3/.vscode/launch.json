@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LabdevApplication<labdev>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.labdev.labdev.LabdevApplication",
+            "projectName": "labdev",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
