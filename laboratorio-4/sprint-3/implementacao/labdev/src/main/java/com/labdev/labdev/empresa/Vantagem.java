@@ -17,12 +17,13 @@ public class Vantagem implements Serializable {
     @Column(nullable = false, updatable = false)
     private long id;
 
+
     private String nome;
     private String descricao;
     private String foto;
-    private BigInteger custo;
+    private int custo;
 
-    public Vantagem(String nome, String descricao, String foto, BigInteger custo) {
+    public Vantagem(String nome, String descricao, String foto, int custo) {
         this.nome = nome;
         this.descricao = descricao;
         this.foto = foto;

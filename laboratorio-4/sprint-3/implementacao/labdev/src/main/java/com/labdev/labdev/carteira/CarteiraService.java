@@ -65,7 +65,6 @@ public class CarteiraService {
                     destinatario.getNome(),
                     remetente.getNome(),
                     transacao.getValor());
-
         } else {
             return null;
         }
