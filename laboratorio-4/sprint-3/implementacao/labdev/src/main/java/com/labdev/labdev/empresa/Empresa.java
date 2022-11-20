@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import com.labdev.labdev.usuario.Usuario;
 import com.labdev.labdev.vantagem.Vantagem;
+import lombok.ToString;
 
+@ToString
 @Entity
 public class Empresa extends Usuario {
 

@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 
 import com.labdev.labdev.professor.Professor;
 import com.labdev.labdev.usuario.Usuario;
+import lombok.ToString;
 
+@ToString
 @Entity
 public class Instituicao extends Usuario {
     

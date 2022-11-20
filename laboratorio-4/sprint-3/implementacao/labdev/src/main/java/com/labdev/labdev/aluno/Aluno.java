@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 //
 import com.labdev.labdev.usuario.Usuario;
+import lombok.ToString;
 
+@ToString
 @Entity
 public class Aluno extends Usuario {
     @Column

@@ -13,7 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 
 import com.labdev.labdev.carteira.Carteira;
+import lombok.ToString;
 
+@ToString
 @Entity
 @Inheritance
 public class Usuario {

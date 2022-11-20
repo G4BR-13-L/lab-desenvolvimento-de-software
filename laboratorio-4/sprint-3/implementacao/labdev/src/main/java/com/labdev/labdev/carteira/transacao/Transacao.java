@@ -24,7 +24,9 @@ import com.labdev.labdev.carteira.Carteira;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @Entity
 @Data
 @Table
