@@ -62,8 +62,7 @@ public class CarteiraService {
         Usuario remetente = usuarioRepository.getReferenceById(transacaoRequest.getRemetente_id());
         Usuario destinatario = usuarioRepository.getReferenceById(transacaoRequest.getDestinatario_id());
 
-        Transacao transacao = new Transacao(remetente.getCarteira(), destinatario.getCarteira(),
-                transacaoRequest.getValor());
+        Transacao transacao = new Transacao(remetente.getId(), destinatario.getId(),transacaoRequest.getValor());
         if (consultarSaldo(remetente.getCarteira().getSaldo(), transacaoRequest.getValor())) {
             System.out.println("Saldo Consultado");
 

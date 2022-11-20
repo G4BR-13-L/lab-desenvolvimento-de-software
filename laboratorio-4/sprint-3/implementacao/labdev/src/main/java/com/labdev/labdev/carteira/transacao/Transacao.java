@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -20,7 +21,8 @@ import org.hibernate.annotations.ManyToAny;
 import org.springframework.lang.Nullable;
 
 import com.labdev.labdev.carteira.Carteira;
-
+import com.labdev.labdev.usuario.Usuario;
+import javax.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,25 +44,25 @@ public class Transacao {
 
     @Column
     private int valor = 0;
-
+    private long remetente_id; 
+    private long destinatario_id;
+    
     /*@ManyToMany(mappedBy = "transacoes")
     private List<Carteira> carteiras = new ArrayList<Carteira>();*/
 
     public Transacao(){
 
     }
-    public Transacao(Carteira remetente, Carteira destinatario, int valor) {
+    public Transacao(long remetente_id, long destinatario_id, int valor) {
         this.data = LocalDateTime.now();
         this.valor = valor;
-        //this.carteiras.add(remetente);
-        //this.carteiras.add(destinatario);
+        this.remetente_id = remetente_id;
+        this.destinatario_id = destinatario_id;
     }
 
     public String relatorio() {
         return "";
     }
-
-
 
     public long getId() {
         return id;
@@ -81,21 +83,42 @@ public class Transacao {
     public void setValor(int valor) {
         this.valor = valor;
     }
-
-    /*public Carteira getRemetente() {
-        return this.carteiras.get(0);
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setRemetente(Carteira remetente) {
-        this.carteiras.add(0, remetente);
+    
+
+
+    /**
+     * @return long return the remetente_id
+     */
+    public long getRemetente_id() {
+        return remetente_id;
     }
 
-    public Carteira getDestinatario() {
-        return this.carteiras.get(1);
+    /**
+     * @param remetente_id the remetente_id to set
+     */
+    public void setRemetente_id(long remetente_id) {
+        this.remetente_id = remetente_id;
     }
 
-    public void setDestinatario(Carteira destinatario) {
-        this.carteiras.add(1, destinatario);
-    }*/
+    /**
+     * @return long return the destinatario_id
+     */
+    public long getDestinatario_id() {
+        return destinatario_id;
+    }
+
+    /**
+     * @param destinatario_id the destinatario_id to set
+     */
+    public void setDestinatario_id(long destinatario_id) {
+        this.destinatario_id = destinatario_id;
+    }
 
 }
