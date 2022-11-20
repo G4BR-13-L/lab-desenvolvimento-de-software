@@ -3,6 +3,7 @@ package com.labdev.labdev.carteira;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +31,7 @@ public class CarteiraController {
         this.carteiraService = carteiraService;
     }
 
-    @GetMapping(path = "/transferir")
+    @GetMapping(value = "/transferir", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Comprovante> transferir(@RequestBody TransacaoRequest transacaoRequest)
             throws SaldoInsuficienteException {
                 System.out.println("Chamando Service");
@@ -39,7 +40,7 @@ public class CarteiraController {
         if (comprovante == null) {
             throw new SaldoInsuficienteException("Saldo insuficiente");
         }
-        return  new ResponseEntity<>(comprovante, HttpStatus.OK);
+        return ResponseEntity.ok(comprovante);
     }
 
     @RequestMapping(path = "/print")
@@ -47,7 +48,7 @@ public class CarteiraController {
         carteiraService.printCarteiras();
     }
 
-    @GetMapping("/extrato")
+    @GetMapping(path = "/extrato")
     public ResponseEntity<Extrato> extrato(@RequestBody ExtratoRequest ExtratoRequest){
         Extrato extrato = carteiraService.gerarExtrato(ExtratoRequest);
         return new ResponseEntity<>(extrato, HttpStatus.OK);

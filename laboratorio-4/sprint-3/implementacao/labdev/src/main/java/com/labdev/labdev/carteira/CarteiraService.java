@@ -1,5 +1,6 @@
 package com.labdev.labdev.carteira;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -38,7 +39,7 @@ public class CarteiraService {
                 .forEach((e) -> System.out.println(e.getCarteira().getId() + " S: " + e.getCarteira().getSaldo()));
     }
 
-    @Transactional
+    // @Transactional
     public Comprovante transferir(TransacaoRequest transacaoRequest) {
         Usuario remetente = usuarioRepository.getReferenceById(transacaoRequest.getRemetente_id());
         Usuario destinatario = usuarioRepository.getReferenceById(transacaoRequest.getDestinatario_id());
