@@ -2,7 +2,7 @@ package com.labdev.labdev.carteira.resgate;
 
 import java.time.LocalDateTime;
 
-import com.labdev.labdev.carteira.Cupom;
+import com.labdev.labdev.carteira.cupom.Cupom;
 import com.labdev.labdev.vantagem.Vantagem;
 
 import javax.persistence.CascadeType;
@@ -32,24 +32,86 @@ import lombok.ToString;
 public class ResgateVantagem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column
     private LocalDateTime data;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "cupom", joinColumns = @JoinColumn(name = "cupom_fk", nullable = true))
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinTable(
+        name="cupom_resgate_vantagem",
+        joinColumns = @JoinColumn( name="cupom_id", nullable = true ),
+        inverseJoinColumns = @JoinColumn( name="resgate_vantagem_id")
+
+    )
     private Cupom cupom;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "vantagen_resgatada", joinColumns = @JoinColumn(name = "vantagem_fk", nullable = true))
     private Vantagem vantagem;
 
-    public ResgateVantagem(Vantagem vantagem) {
+    public ResgateVantagem(Vantagem vantagem, Cupom cupom) {
         this.vantagem = vantagem;
         this.data = LocalDateTime.now();
-        this.cupom = new Cupom();
+        this.cupom = cupom;
+    }
+
+
+    /**
+     * @return long return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return LocalDateTime return the data
+     */
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(LocalDateTime data) {
+        this.data = data;
+    }
+
+    /**
+     * @return Cupom return the cupom
+     */
+    public Cupom getCupom() {
+        return cupom;
+    }
+
+    /**
+     * @param cupom the cupom to set
+     */
+    public void setCupom(Cupom cupom) {
+        this.cupom = cupom;
+    }
+
+    /**
+     * @return Vantagem return the vantagem
+     */
+    public Vantagem getVantagem() {
+        return vantagem;
+    }
+
+    /**
+     * @param vantagem the vantagem to set
+     */
+    public void setVantagem(Vantagem vantagem) {
+        this.vantagem = vantagem;
     }
 
 }

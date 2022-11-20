@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labdev.labdev.carteira.cupom.Cupom;
 import com.labdev.labdev.carteira.exception.SaldoInsuficienteException;
 import com.labdev.labdev.carteira.extrato.Extrato;
 import com.labdev.labdev.carteira.extrato.ExtratoRequest;

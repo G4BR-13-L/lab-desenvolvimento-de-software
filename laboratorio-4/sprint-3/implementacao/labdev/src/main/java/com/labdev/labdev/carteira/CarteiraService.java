@@ -8,9 +8,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.labdev.labdev.carteira.cupom.Cupom;
+import com.labdev.labdev.carteira.cupom.CupomRepository;
 import com.labdev.labdev.carteira.extrato.Extrato;
 import com.labdev.labdev.carteira.extrato.ExtratoRequest;
 import com.labdev.labdev.carteira.resgate.ResgateVantagem;
+import com.labdev.labdev.carteira.resgate.ResgateVantagemRepository;
 import com.labdev.labdev.carteira.transacao.Transacao;
 import com.labdev.labdev.carteira.transacao.TransacaoRepository;
 import com.labdev.labdev.carteira.transacao.TransacaoRequest;
@@ -27,17 +30,25 @@ public class CarteiraService {
     private final UsuarioRepository usuarioRepository;
     private final TransacaoRepository transacaoRepository;
     private final VantagemRepository vantagemRepository;
+    private final ResgateVantagemRepository resgateVantagemRepository;
+    private final CupomRepository cupomRepository;
+
 
     @Autowired
     public CarteiraService(
             CarteiraRepository carteiraRepository,
             UsuarioRepository usuarioRepository,
             TransacaoRepository transacaoRepository,
-            VantagemRepository vantagemRepository) {
+            VantagemRepository vantagemRepository,
+            ResgateVantagemRepository resgateVantagemRepository,
+            CupomRepository cupomRepository
+            ) {
         this.carteiraRepository = carteiraRepository;
         this.usuarioRepository = usuarioRepository;
         this.transacaoRepository = transacaoRepository;
         this.vantagemRepository = vantagemRepository;
+        this.resgateVantagemRepository = resgateVantagemRepository;
+        this.cupomRepository = cupomRepository;
     }
 
     public void printCarteiras() {
@@ -95,13 +106,28 @@ public class CarteiraService {
     public Cupom trocarVantagem(VantagemRequest vantagemRequest) {
         Usuario usuario = usuarioRepository.getReferenceById(vantagemRequest.getUsuario_id());
         Vantagem vantagem = vantagemRepository.getReferenceById(vantagemRequest.getVantagem_id());
-        Carteira carteira = usuario.getCarteira();
-        if (carteira.getSaldo() >= vantagem.getCusto()) {
-            ResgateVantagem rv = new ResgateVantagem(vantagem);
-            carteira.addResgateVantagem(rv);
-            carteira.descontarSaldo(vantagem.getCusto());
+        System.out.println(vantagem.toString());
+        System.out.println(usuario.toString());
+        
+        if (usuario.getCarteira().getSaldo() >= vantagem.getCusto()) {
+            System.out.println("Saldo Consultado");
+            
+            Cupom cupom = new Cupom();
+            System.out.println(cupom.toString());
+            ResgateVantagem rv = new ResgateVantagem(vantagem, cupom);
+            
+            usuario.getCarteira().descontarSaldo(rv.getVantagem().getCusto());
+            usuario.getCarteira().addResgateVantagem(rv);
+
             System.out.println(rv.getCupom().getCodigo());
-            return rv.getCupom();
+            System.out.println(usuario.getCarteira().toString());
+            System.out.println("Destinatario Notificado por email");
+            cupomRepository.save(cupom);
+            resgateVantagemRepository.save(rv);
+            usuarioRepository.save(usuario);
+            
+            //return rv.getCupom();
+            return cupom;
         } else {
             return null;
         }

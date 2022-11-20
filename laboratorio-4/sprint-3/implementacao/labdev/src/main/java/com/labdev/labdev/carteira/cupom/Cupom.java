@@ -1,4 +1,4 @@
-package com.labdev.labdev.carteira;
+package com.labdev.labdev.carteira.cupom;
 
 import java.util.UUID;
 
@@ -22,8 +22,9 @@ import lombok.ToString;
 public class Cupom {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
     @Column
     private String codigo;
 
@@ -34,4 +35,26 @@ public class Cupom {
     public String getCodigo() {
         return this.codigo;
     }
+
+    /**
+     * @return long return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
 }
