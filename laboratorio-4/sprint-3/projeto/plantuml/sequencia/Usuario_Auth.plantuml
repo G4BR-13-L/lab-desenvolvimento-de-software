@@ -23,6 +23,7 @@ group AutenticacaoUsuario
 end
 
 
+
 group RegistroUsuario
     Usuario ->  UsuarioView : Registrar(Usuario)
     activate UsuarioView
@@ -34,9 +35,6 @@ group RegistroUsuario
     deactivate UsuarioController
     deactivate UsuarioView
 end
-
-
-
 
 ' --> Sincrono 
 ' -->> Assincrono
