@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.labdev.labdev.carteira.Carteira;
 import lombok.ToString;
 
@@ -30,6 +32,7 @@ public class Usuario {
     private String email;
 
     @Column
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String senha;
 
     @Column
@@ -44,17 +47,14 @@ public class Usuario {
     @Column
     private String endereco;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinTable(
-        name="carteira_usuario",
-        joinColumns = @JoinColumn( name="carteira_id" ),
-        inverseJoinColumns = @JoinColumn( name="usuario_id" )
-    )
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "carteira_usuario", joinColumns = @JoinColumn(name = "carteira_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     private Carteira carteira;
 
-    public Usuario(){
-        
+    public Usuario() {
+
     }
+
     public Usuario(
             String nome, String email, String senha,
             String cpf, String rg) {
@@ -76,10 +76,11 @@ public class Usuario {
         this.carteira = new Carteira();
     }
 
-    public String getNome(){
+    public String getNome() {
         return this.nome;
     }
-    public Carteira getCarteira(){
+
+    public Carteira getCarteira() {
         return this.carteira;
     }
 
@@ -106,7 +107,6 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
 
     public String getCpf() {
         return cpf;

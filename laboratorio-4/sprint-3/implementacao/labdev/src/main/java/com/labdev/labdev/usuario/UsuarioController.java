@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,9 @@ public class UsuarioController {
         return new ResponseEntity<>(this.usuarioService.getAllUsuarios(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-    public ResponseEntity<String> cadastrar(@RequestBody UserCreateRequest userCreateRequest) {
-        this.usuarioService.criarUsuario(userCreateRequest);
-        return ResponseEntity.ok().build();
+    @RequestMapping(value = "/cadastrar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Usuario> cadastrar(@RequestBody UserCreateRequest userCreateRequest) {
+        Usuario usuario = this.usuarioService.criarUsuario(userCreateRequest);
+        return ResponseEntity.ok(usuario);
     }
 }
