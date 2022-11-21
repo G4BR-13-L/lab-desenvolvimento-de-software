@@ -22,22 +22,6 @@ group ConsultarSaldo
     deactivate CarteiraController
 end
 
-group ConsultarExtrato
-    ref over Professor,CarteiraController, CarteiraService, CarteiraRepository : AutenticarProfessor
-    Professor -> CarteiraController : "Relatorio":ConsultarExtrato()
-    activate CarteiraController
-    CarteiraController -> CarteiraService : CarteiraProfessor.gerarExtrato()
-    activate CarteiraService
-    CarteiraService -> CarteiraRepository : List<Transacao>:findAllTransacoes()
-    activate CarteiraRepository
-    deactivate CarteiraRepository
-    CarteiraService -> CarteiraService : String:relatorio()
-    activate CarteiraService
-    deactivate CarteiraService
-    deactivate CarteiraService
-    deactivate CarteiraController
-end
-
 group Transferir
     ref over Professor,CarteiraController, CarteiraService, CarteiraRepository : AutenticarProfessor
     Professor -> CarteiraController : transferir(JSON<TransacaoRequest>)
