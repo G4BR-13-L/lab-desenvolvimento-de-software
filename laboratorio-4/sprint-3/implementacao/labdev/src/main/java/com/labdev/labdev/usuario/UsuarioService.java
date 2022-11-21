@@ -28,7 +28,7 @@ public class UsuarioService {
         return this.usuarioRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
     }
 
-    public void criarUsuario(UserCreateRequest userCreateRequest) {
+    public Usuario criarUsuario(UserCreateRequest userCreateRequest) {
         Usuario usuario = new Usuario();
         Optional<Usuario> email = this.usuarioRepository.findByEmail(userCreateRequest.getEmail());
 
@@ -39,6 +39,6 @@ public class UsuarioService {
         usuario.setEmail(userCreateRequest.getEmail());
         usuario.setSenha(passwordEncoder.encode(userCreateRequest.getSenha()));
 
-        this.usuarioRepository.save(usuario);
+        return this.usuarioRepository.save(usuario);
     }
 }
