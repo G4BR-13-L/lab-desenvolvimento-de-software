@@ -5,26 +5,25 @@ note left of Empresa #LightYellow
     Empresa
 end note
 
-participant "CarteiraEmpresaView" as CarteiraEmpresaView
-participant "CarteiraEmpresaController" as CarteiraEmpresaController
-participant "CarteiraEmpresaModel" as CarteiraEmpresaModel
+participant "EmpresaView" as EmpresaView
+participant "VantagemController" as VantagemController
+participant "VantagemService" as VantagemService
+participant "VantagemRepository" as VantagemRepository
 
 group CadastrarVantagem
-    ref over Empresa,CarteiraEmpresaView, CarteiraEmpresaController, CarteiraEmpresaModel : AutenticarUsuario
-    Empresa -> CarteiraEmpresaView :  CadastrarVantagem(Vantagem)
-    activate CarteiraEmpresaView
-    CarteiraEmpresaView -> CarteiraEmpresaController : CadastrarVantagem()
-    activate CarteiraEmpresaController
-    CarteiraEmpresaController -> CarteiraEmpresaModel : ColsultarVantagens()
-    activate CarteiraEmpresaModel
-    deactivate CarteiraEmpresaModel
-    CarteiraEmpresaController -> CarteiraEmpresaModel : RegistrarVantagem()
-    activate CarteiraEmpresaModel
-    deactivate  CarteiraEmpresaModel
-    deactivate CarteiraEmpresaController
-    deactivate CarteiraEmpresaView
+    ref over Empresa,EmpresaView, VantagemController, VantagemRepository : AutenticarUsuario
+    Empresa -> EmpresaView :  CadastrarVantagem(nome, descricao, foto, custo)
+    activate EmpresaView
+    EmpresaView -> VantagemController : cadastrarVantagem(Vantagem)
+    activate VantagemController
+    VantagemController -> VantagemService : save(Vantagem)
+    activate VantagemService
+    VantagemService -> VantagemRepository : save(Vantagem)
+    activate VantagemRepository
+    deactivate VantagemRepository
+    deactivate VantagemService
+    deactivate VantagemController
+    deactivate EmpresaView
 end
-
-
 
 @enduml
