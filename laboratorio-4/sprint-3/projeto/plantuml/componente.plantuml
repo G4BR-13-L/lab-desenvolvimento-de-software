@@ -1,33 +1,85 @@
 @startuml componente
-
+skinparam linetype ortho
+'top to bottom direction
 left to right direction
-
-component Usuarios {
-    component Usuario
-    component Aluno
-    component Professor
-    component PessoaFisica
-    component PessoaJuridica
+component Controller{
+    component UsuarioController
+    component AlunoController
+    component ProfessorController
+    component EmpresaController
+    component CarteiraController
+    component VantagemController
 }
 
-component Institucional {
-    component Instituicao
-    component Empresa
+UsuarioController -[hidden]> AlunoController
+AlunoController -[hidden]> ProfessorController
+ProfessorController -[hidden]> EmpresaController
+EmpresaController -[hidden]> CarteiraController
+
+
+
+component Service{
+    component UsuarioService
+    component AlunoService
+    component ProfessorService
+    component ProfessorService
+    component EmpresaService
+    component CarteiraService
+    component InstituicaoService
+    component VantagemService
 }
 
-component Pagamento {
-    component Cupom
-    component Transacao
-    component Extrato
-    component Carteira
-    component CarteiraAluno
-    component CarteiraProfessor
+AlunoService -[hidden]> ProfessorService
+ProfessorService -[hidden]> EmpresaService
+EmpresaService -[hidden]> CarteiraService
+
+
+component Model <<layer>>{
+    'portin CarteiraAccess
+    component CarteiraRepository
+    component TransacaoRepository
+    component ExtratoRepository
+    component VantagemRepository
+    component EmpresaRepository
+    component InstituicaoRepository
+    component UsuarioRepository
 }
 
-component Email
+CarteiraRepository -[hidden]> TransacaoRepository
+TransacaoRepository -[hidden]> ExtratoRepository
+ExtratoRepository -[hidden]> VantagemRepository
 
-Email -0)- Pagamento
-Institucional -(0- Usuarios
-Usuarios -0)- Pagamento
 
+
+
+
+
+UsuarioController -[hidden]down-> AlunoService
+AlunoController -[hidden]down-> ProfessorService
+ProfessorController -[hidden]down-> EmpresaService
+EmpresaController -[hidden]down-> ProfessorService
+CarteiraController -[hidden]down-> CarteiraService
+
+AlunoService -[hidden]down-> CarteiraRepository
+ProfessorService -[hidden]down-> TransacaoRepository
+EmpresaService -[hidden]down-> ExtratoRepository
+ProfessorService -[hidden]down-> VantagemRepository
+
+CarteiraController -(0- CarteiraService
+ProfessorController -(0- ProfessorService
+AlunoController -(0- AlunoService
+EmpresaController -(0- EmpresaService
+UsuarioController -(0- UsuarioService
+VantagemController -(0- VantagemService
+
+EmpresaService -(0- EmpresaRepository
+InstituicaoService -(0- InstituicaoRepository
+UsuarioService -(0- UsuarioRepository
+VantagemService -(0- VantagemRepository
+
+
+CarteiraService -(0- CarteiraRepository
+CarteiraService -(0- TransacaoRepository
+CarteiraService -(0- ExtratoRepository
+CarteiraService -(0- VantagemRepository
 @enduml

@@ -41,6 +41,9 @@ public class Usuario {
     @Column
     private String cnpj;
 
+    @Column
+    private String endereco;
+
     @OneToOne(cascade=CascadeType.ALL)
     @JoinTable(
         name="carteira_usuario",

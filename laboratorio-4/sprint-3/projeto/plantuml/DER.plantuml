@@ -6,49 +6,30 @@ hide circle
 entity Usuario {
     id: Number <<PK>>
     ---
+    idCarteira: Number <<FK>>
     nome: String
     email: String
     senha: String
-    cep: Number
-    numero: Number
-    rua: String
-    bairro: String
-    cidade: String
-    estado: String
-}
-
-entity PessoaFisica {
-    id: Number <<PK>>
-    ---
-    idUsuario: Number <<FK>>
-    cpf: String
-    rg: String
-}
-
-entity PessoaJuridica {
-    id: Number <<PK>>
-    ---
-    idUsuario: Number <<FK>>
-    cnpj: String
+    endereco: String
 }
 
 entity Instituicao {
     id: Number <<PK>>
     ---
-    idPessoaJuridica: Number <<FK>>
+    idUsuario: Number <<FK>>
 }
 
 entity Empresa {
     id: Number <<PK>>
     ---
-    idPessoaJuridica: Number <<FK>>
+    idUsuario: Number <<FK>>
 }
 
 entity Aluno {
     id: Number <<PK>>
     ---
     idCarteiraAluno: Number <<FK>>
-    idPessoaFisica: Number <<FK>>
+    idUsuario: Number <<FK>>
     semestre: Number
 }
 
@@ -56,7 +37,7 @@ entity Professor {
     id: Number <<PK>>
     ---
     idCarteiraProfessor: Number <<FK>>
-    idPessoaFisica: Number <<FK>>
+    idUsuario: Number <<FK>>
     departamento: String
 }
 
@@ -83,43 +64,39 @@ entity Carteira {
     id: Number <<PK>>
     ---
     saldo: Number
+    idResgateVantagens: Number <<FK>>
 }
 
-entity CarteiraAluno {
+entity ResgateVantagem{
     id: Number <<PK>>
     ---
-    idCarteira: Number <<FK>>
+    idVantagem: Number <<FK>>
+    idCupom: Number <<FK>>
 }
 
-entity CarteiraProfessor {
+entity Cupom{
     id: Number <<PK>>
-    ---
-    idCarteira: Number <<FK>>
 }
 
 '--------------------------------------
 'RELACIONAMENTOS
 '--------------------------------------
 
-Carteira ||-- CarteiraAluno
-Carteira ||-- CarteiraProfessor
 
-Aluno --|| CarteiraAluno
-Professor --|| CarteiraProfessor
 
 Empresa "1" ||--|{ "0..*" Vantagem
 
-Usuario ||--o{ Transacao
+Cupom "1"--"1" ResgateVantagem
 
-Usuario ||-- PessoaFisica
-Usuario ||-- PessoaJuridica
+Carteira ||--o{ Transacao
+Carteira "0..*"||--o{"1" ResgateVantagem
 
-PessoaJuridica ||-- Empresa
-PessoaJuridica ||-- Instituicao
-
-PessoaFisica ||-- Aluno
-PessoaFisica ||-- Professor
+Usuario ||-- Professor
+Usuario ||-- Aluno
+Usuario ||-- Instituicao
+Usuario ||-- Empresa
 
 Professor "0..*" }o--|| "1" Instituicao
+Carteira "1" -- "1" Usuario
 
 @enduml

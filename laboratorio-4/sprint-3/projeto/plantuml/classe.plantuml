@@ -12,10 +12,12 @@ abstract Usuario <<abstract>>{
     - cpf: String
     - rg: String
     - cnpj: string
+    - endereco: String
     + Usuario(nome: String, email: String, senha: String, endereco: Endereco)
     + Usuario(email: String, senha: String)
     + registrar(): void
     + autenticar(): void
+    
 }
 
 
@@ -26,14 +28,6 @@ class Instituicao {
     + distribuirMoedas(moedas: int, professor: Professor): void
 }
 
-class Endereco {
-    - cep: int
-    - numero: int
-    - rua: String
-    - bairro: String
-    - cidade: String
-    - estado: String
-}
 
 class Aluno {
     - semestre: int
@@ -50,8 +44,8 @@ class Empresa {
 class Transacao {
     - data: Date
     - valor: int
-    - remetente: Usuario
-    - destinatario: Usuario
+    - remetente_id: long
+    - destinatario_id: long
     + Transacao(remetente: Usuario, destinatario: Usuario, valor: int)
     + relatorio(): String
 }
@@ -124,5 +118,8 @@ ResgateVantagem -->Vantagem
 
 'Relacionamento Empresa
 Empresa "1" o--> "*" Vantagem
+
+'Ajuste do diagrama
+Email -[hidden]->Usuario
 
 @enduml
