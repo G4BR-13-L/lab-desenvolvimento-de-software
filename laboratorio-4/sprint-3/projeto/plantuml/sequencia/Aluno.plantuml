@@ -6,61 +6,47 @@ note left of Aluno #LightYellow
     Aluno
 end note
 
-participant "CarteiraAlunoView" as CarteiraAlunoView
-participant "CarteiraAlunoController" as CarteiraAlunoController
-participant "CarteiraAlunoModel" as CarteiraAlunoModel
+participant "CarteiraController" as CarteiraController
+participant "CarteiraService" as CarteiraService
+participant "CarteiraRepository" as CarteiraRepository
 
 group ConsultarSaldo
-    ref over Aluno,CarteiraAlunoView, CarteiraAlunoController, CarteiraAlunoModel : AutenticarUsuario
-    Aluno -> CarteiraAlunoView : Saldo:ConsultarSaldo()
-    activate CarteiraAlunoView
-    CarteiraAlunoView -> CarteiraAlunoController : CarteiraAluno.saldoTotal()
-    activate CarteiraAlunoController
-    CarteiraAlunoController -> CarteiraAlunoModel : getSaldo();
-    activate CarteiraAlunoModel
-    deactivate CarteiraAlunoModel
-    deactivate CarteiraAlunoController
-    deactivate CarteiraAlunoView
+    ref over Aluno,CarteiraController, CarteiraService, CarteiraRepository : AutenticarUsuario
+    Aluno -> CarteiraController : Saldo:ConsultarSaldo()
+    activate CarteiraController
+    CarteiraController -> CarteiraService : CarteiraAluno.saldoTotal()
+    activate CarteiraService
+    CarteiraService -> CarteiraRepository : getSaldo();
+    activate CarteiraRepository
+    deactivate CarteiraRepository
+    deactivate CarteiraService
+    deactivate CarteiraController
 end
 
-group ConsultarExtrato
-    ref over Aluno,CarteiraAlunoView, CarteiraAlunoController, CarteiraAlunoModel : AutenticarUsuario
-    Aluno -> CarteiraAlunoView : "Relatorio":ConsultarExtrato()
-    activate CarteiraAlunoView
-    CarteiraAlunoView -> CarteiraAlunoController : CarteiraAluno.gerarExtrato()
-    activate CarteiraAlunoController
-    CarteiraAlunoController -> CarteiraAlunoModel : List<Transacao>:findAllTransacoes()
-    activate CarteiraAlunoModel
-    deactivate CarteiraAlunoModel
-    CarteiraAlunoController -> CarteiraAlunoController : String:relatorio()
-    activate CarteiraAlunoController
-    deactivate CarteiraAlunoController
-    deactivate CarteiraAlunoController
-    deactivate CarteiraAlunoView
-end
+
 
 group Transferir
-    ref over Aluno,CarteiraAlunoView, CarteiraAlunoController, CarteiraAlunoModel : AutenticarUsuario
-    Aluno -> CarteiraAlunoView :  Cupom:TrocarVantagem(Vantagem)
-    activate CarteiraAlunoView
-    CarteiraAlunoView -> CarteiraAlunoController : TrocarVantagem()
-    activate CarteiraAlunoController
-    CarteiraAlunoController -> CarteiraAlunoModel : ConsultarSaldo()
-    activate CarteiraAlunoModel
-    deactivate CarteiraAlunoModel
-    CarteiraAlunoController -> CarteiraAlunoModel : ConsultarVantagem()
-    activate CarteiraAlunoModel
-    deactivate  CarteiraAlunoModel
-    CarteiraAlunoController -> CarteiraAlunoModel : DescontarSaldo()
-    activate CarteiraAlunoModel
-    deactivate CarteiraAlunoModel
-    CarteiraAlunoController -> CarteiraAlunoModel : GerarCupom()
-    activate CarteiraAlunoModel
-    deactivate CarteiraAlunoModel
-    CarteiraAlunoController -->> Email : EnviarEmailCupom(Email)
-    CarteiraAlunoController -->> Email : EnviarEmailConfirmacao(Email)
-    deactivate CarteiraAlunoController
-    deactivate CarteiraAlunoView
+    ref over Aluno,CarteiraController, CarteiraService, CarteiraRepository : AutenticarUsuario
+    Aluno -> CarteiraController :  Cupom:TrocarVantagem(Vantagem)
+    activate CarteiraController
+    CarteiraController -> CarteiraService : TrocarVantagem()
+    activate CarteiraService
+    CarteiraService -> CarteiraRepository : ConsultarSaldo()
+    activate CarteiraRepository
+    deactivate CarteiraRepository
+    CarteiraService -> CarteiraRepository : ConsultarVantagem()
+    activate CarteiraRepository
+    deactivate  CarteiraRepository
+    CarteiraService -> CarteiraRepository : DescontarSaldo()
+    activate CarteiraRepository
+    deactivate CarteiraRepository
+    CarteiraService -> CarteiraRepository : GerarCupom()
+    activate CarteiraRepository
+    deactivate CarteiraRepository
+    CarteiraService -->> Email : EnviarEmailCupom(Email)
+    CarteiraService -->> Email : EnviarEmailConfirmacao(Email)
+    deactivate CarteiraService
+    deactivate CarteiraController
 end
 
 

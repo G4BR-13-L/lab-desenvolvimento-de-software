@@ -5,61 +5,65 @@ note left of Professor #LightYellow
     Professor
 end note
 
-participant "CarteiraProfessorView" as CarteiraProfessorView
-participant "CarteiraProfessorController" as CarteiraProfessorController
-participant "CarteiraProfessorModel" as CarteiraProfessorModel
+participant "CarteiraController" as CarteiraController
+participant "CarteiraService" as CarteiraService
+participant "CarteiraRepository" as CarteiraRepository
 
 group ConsultarSaldo
-    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
-    Professor -> CarteiraProfessorView : Saldo:ConsultarSaldo()
-    activate CarteiraProfessorView
-    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.saldoTotal()
-    activate CarteiraProfessorController
-    CarteiraProfessorController -> CarteiraProfessorModel : getSaldo();
-    activate CarteiraProfessorModel
-    deactivate CarteiraProfessorModel
-    deactivate CarteiraProfessorController
-    deactivate CarteiraProfessorView
+    ref over Professor,CarteiraController, CarteiraService, CarteiraRepository : AutenticarProfessor
+    Professor -> CarteiraController : Saldo:ConsultarSaldo()
+    activate CarteiraController
+    CarteiraController -> CarteiraService : CarteiraProfessor.saldoTotal()
+    activate CarteiraService
+    CarteiraService -> CarteiraRepository : getSaldo();
+    activate CarteiraRepository
+    deactivate CarteiraRepository
+    deactivate CarteiraService
+    deactivate CarteiraController
 end
 
 group ConsultarExtrato
-    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
-    Professor -> CarteiraProfessorView : "Relatorio":ConsultarExtrato()
-    activate CarteiraProfessorView
-    CarteiraProfessorView -> CarteiraProfessorController : CarteiraProfessor.gerarExtrato()
-    activate CarteiraProfessorController
-    CarteiraProfessorController -> CarteiraProfessorModel : List<Transacao>:findAllTransacoes()
-    activate CarteiraProfessorModel
-    deactivate CarteiraProfessorModel
-    CarteiraProfessorController -> CarteiraProfessorController : String:relatorio()
-    activate CarteiraProfessorController
-    deactivate CarteiraProfessorController
-    deactivate CarteiraProfessorController
-    deactivate CarteiraProfessorView
+    ref over Professor,CarteiraController, CarteiraService, CarteiraRepository : AutenticarProfessor
+    Professor -> CarteiraController : "Relatorio":ConsultarExtrato()
+    activate CarteiraController
+    CarteiraController -> CarteiraService : CarteiraProfessor.gerarExtrato()
+    activate CarteiraService
+    CarteiraService -> CarteiraRepository : List<Transacao>:findAllTransacoes()
+    activate CarteiraRepository
+    deactivate CarteiraRepository
+    CarteiraService -> CarteiraService : String:relatorio()
+    activate CarteiraService
+    deactivate CarteiraService
+    deactivate CarteiraService
+    deactivate CarteiraController
 end
 
 group Transferir
-    ref over Professor,CarteiraProfessorView, CarteiraProfessorController, CarteiraProfessorModel : AutenticarUsuario
-    Professor -> CarteiraProfessorView :  Transferir(remetente_id, destinatario_id, valor)
-    activate CarteiraProfessorView
-    CarteiraProfessorView -> CarteiraProfessorController : transferir(TransacaoRequest)
-    activate CarteiraProfessorController
-    CarteiraProfessorController -> CarteiraProfessorController : ConsultarSaldo()
-    CarteiraProfessorController -> CarteiraProfessorModel : ConsultarAluno()
-    activate CarteiraProfessorModel
-    deactivate  CarteiraProfessorModel
-    CarteiraProfessorController -> CarteiraProfessorModel : DescontarSaldo()
-    activate CarteiraProfessorModel
-    deactivate CarteiraProfessorModel
-    CarteiraProfessorController -> CarteiraAlunoController: incrementarSaldo()
-    activate CarteiraAlunoController
-    deactivate CarteiraAlunoController
-    CarteiraProfessorController -> CarteiraProfessorModel : GerarComprovante()
-    activate CarteiraProfessorModel
-    deactivate CarteiraProfessorModel
-    CarteiraProfessorController -->> Email : NotificarAluno(Email)
-    deactivate CarteiraProfessorController
-    deactivate CarteiraProfessorView
+    ref over Professor,CarteiraController, CarteiraService, CarteiraRepository : AutenticarProfessor
+    Professor -> CarteiraController : transferir(JSON<TransacaoRequest>)
+    activate CarteiraController
+    CarteiraController -> CarteiraService : transferir(TransacaoRequest)
+    activate CarteiraService
+    CarteiraService -> CarteiraRepository : Professor.getCarteira()
+    activate CarteiraRepository
+    CarteiraService -> CarteiraService : ConsultarSaldo(Professor.getCarteira, TransacaoRequest)
+    alt Saldo
+        ...[saldo < TransacaoRequest.valor]...
+        CarteiraService -> CarteiraController : "Saldo Insuficiente"
+        CarteiraController -> Professor : "Saldo Insuficiente"
+        ...[Saldo >= TransacaoRequest ]...
+        CarteiraService -> CarteiraRepository : Aluno.getCarteira()
+        CarteiraRepository --> CarteiraService : carteiraAluno 
+        CarteiraService -> CarteiraService : carteiraAluno.incrementarSaldo()
+        CarteiraService -> CarteiraService : carteiraProfessor.descontarSaldo()
+        CarteiraService -> CarteiraService : new Comprovante();
+        CarteiraService -> CarteiraRepository : save()
+        CarteiraService -> CarteiraController : Comprovante
+        CarteiraController -> Professor : Comprovante
+    deactivate CarteiraRepository
+    deactivate CarteiraService
+    deactivate CarteiraController
+    end
 end
 ' --> Sincrono
 ' -->> Assincrono

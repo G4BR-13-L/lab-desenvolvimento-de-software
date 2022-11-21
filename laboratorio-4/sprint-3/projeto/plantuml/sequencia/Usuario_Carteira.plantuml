@@ -1,0 +1,55 @@
+@startuml Usuario
+
+
+actor "Usuario" as Usuario
+note left of Usuario #LightYellow
+US4
+end note
+
+participant "CarteiraController" as CarteiraController
+participant "CarteiraService" as CarteiraService
+participant "CarteiraRepository" as CarteiraRepository
+
+group ConsultarSaldo
+    ref over Usuario,CarteiraController, CarteiraService, CarteiraRepository : AutenticarUsuario
+    Usuario -> CarteiraController: Extrato:extrato(JSON<ExtratoRequest>)
+    activate CarteiraController
+    CarteiraController -> CarteiraService: gerarExtrato(ExtratoRequest)
+    activate CarteiraService
+    CarteiraService -> CarteiraRepository : getCarteira(extratoRequest.getUsuario_id())
+    activate CarteiraRepository
+    CarteiraRepository --> CarteiraService : Carteira
+    deactivate CarteiraRepository
+    CarteiraService -> CarteiraService : new Extrato(Carteira.getTransacoes())
+    CarteiraService --> CarteiraController: Extrato
+    CarteiraController --> Usuario : Extrato
+    deactivate CarteiraController
+end
+
+group ConsultarExtrato
+    ref over Usuario,CarteiraController, CarteiraService, CarteiraRepository : AutenticarUsuario
+    Usuario -> CarteiraController: Extrato:extrato(JSON<ExtratoRequest>)
+    activate CarteiraController
+    CarteiraController -> CarteiraService: gerarExtrato(ExtratoRequest)
+    activate CarteiraService
+    CarteiraService -> CarteiraRepository : getCarteira(extratoRequest.getUsuario_id())
+    activate CarteiraRepository
+    CarteiraRepository --> CarteiraService : Carteira
+    deactivate CarteiraRepository
+    CarteiraService -> CarteiraService : new Extrato(Carteira.getTransacoes())
+    CarteiraService --> CarteiraController: Extrato
+    CarteiraController --> Usuario : Extrato
+    deactivate CarteiraController
+end
+
+
+
+
+
+
+' --> Sincrono 
+' -->> Assincrono
+' <-- Retorno Sincrono
+' <<-- Retorno Assíncrono
+
+@enduml
