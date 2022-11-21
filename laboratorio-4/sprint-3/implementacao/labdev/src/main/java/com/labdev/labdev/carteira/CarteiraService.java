@@ -33,7 +33,6 @@ public class CarteiraService {
     private final ResgateVantagemRepository resgateVantagemRepository;
     private final CupomRepository cupomRepository;
 
-
     @Autowired
     public CarteiraService(
             CarteiraRepository carteiraRepository,
@@ -41,8 +40,7 @@ public class CarteiraService {
             TransacaoRepository transacaoRepository,
             VantagemRepository vantagemRepository,
             ResgateVantagemRepository resgateVantagemRepository,
-            CupomRepository cupomRepository
-            ) {
+            CupomRepository cupomRepository) {
         this.carteiraRepository = carteiraRepository;
         this.usuarioRepository = usuarioRepository;
         this.transacaoRepository = transacaoRepository;
@@ -62,7 +60,7 @@ public class CarteiraService {
         Usuario remetente = usuarioRepository.getReferenceById(transacaoRequest.getRemetente_id());
         Usuario destinatario = usuarioRepository.getReferenceById(transacaoRequest.getDestinatario_id());
 
-        Transacao transacao = new Transacao(remetente.getId(), destinatario.getId(),transacaoRequest.getValor());
+        Transacao transacao = new Transacao(remetente.getId(), destinatario.getId(), transacaoRequest.getValor());
         if (consultarSaldo(remetente.getCarteira().getSaldo(), transacaoRequest.getValor())) {
             System.out.println("Saldo Consultado");
 
@@ -99,7 +97,7 @@ public class CarteiraService {
         Usuario usuario = usuarioRepository.getReferenceById(extratoRequest.getUsuario_id());
         Carteira carteira = usuario.getCarteira();
         return new Extrato(carteira.getTransacoes(), carteira.getSaldo());
-      
+
     }
 
     public Cupom trocarVantagem(VantagemRequest vantagemRequest) {
@@ -107,14 +105,14 @@ public class CarteiraService {
         Vantagem vantagem = vantagemRepository.getReferenceById(vantagemRequest.getVantagem_id());
         System.out.println(vantagem.toString());
         System.out.println(usuario.toString());
-        
+
         if (usuario.getCarteira().getSaldo() >= vantagem.getCusto()) {
             System.out.println("Saldo Consultado");
-            
+
             Cupom cupom = new Cupom();
             System.out.println(cupom.toString());
             ResgateVantagem rv = new ResgateVantagem(vantagem, cupom);
-            
+
             usuario.getCarteira().descontarSaldo(rv.getVantagem().getCusto());
             usuario.getCarteira().addResgateVantagem(rv);
 
@@ -124,11 +122,19 @@ public class CarteiraService {
             cupomRepository.save(cupom);
             resgateVantagemRepository.save(rv);
             usuarioRepository.save(usuario);
-            
-            //return rv.getCupom();
+
+            // return rv.getCupom();
             return cupom;
         } else {
             return null;
         }
+    }
+
+    public int saldo(Long usuarioId) {
+        Usuario usuario = this.usuarioRepository.getReferenceById(usuarioId);
+        if (usuario == null) {
+            throw new RuntimeException("Usuario não encontrado!");
+        }
+        return usuario.getCarteira().getSaldo();
     }
 }
