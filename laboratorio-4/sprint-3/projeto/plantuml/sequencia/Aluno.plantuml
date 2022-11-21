@@ -28,6 +28,7 @@ group TrocarMoedas
     CarteiraService -> CarteiraService : addResgateVantagem(ResgateVantagem)
     CarteiraService -> CarteiraRepository : save() 
     deactivate CarteiraRepository
+    CarteiraService -> Email : Email(Cupom)
     CarteiraService --> CarteiraController : Cupom
     deactivate CarteiraService
     CarteiraController --> Aluno : Cupom
